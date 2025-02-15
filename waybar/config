@@ -2,18 +2,23 @@
     "position": "top",
     "height": 32,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-right": ["pulseaudio", "cpu", "memory","network", "battery", "tray"],
+    "modules-right": ["hyprland/language", "pulseaudio", "cpu", "memory","network", "battery", "tray"],
     "modules-center": ["clock"],
     "tray": {
         "spacing": 10
     },
     "hyprland/window": {  
-    "format": "{}"
+    "icon": true,
+    "icon-size": 12,
+    },
+    "hyprland/language": {
+    "format-en": "US",
+    "format-ru": "RU",
     },
     "clock": {
     	"interval": 1,
     	"timezone": "Asia/Yekaterinburg",
-    	"format": "D {:%d.%m.%y  T %I:%M:%S %p}",
+    	"format": "{:%d.%m.%y | %H:%M:%S}",
     	"tooltip": false,
     },
     "cpu": {
@@ -21,7 +26,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "M {}%"
+        "format": "MEM {}%"
     },
     "battery": {
         "states": {
@@ -29,23 +34,23 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "B {capacity}%",
+        "format": "BAT {capacity}%",
         "format-charging": "CB {capacity}%",
         "format-plugged": "{capacity}%",
         "format-alt": "{time}",
     },
     "network": {
-        "format-wifi": "Wi-Fi {signalStrength}",
-        "format-ethernet": "Wired",
+	"interval": 1,
+        "format-wifi": "Wi-Fi {signalStrength}% {bandwidthDownBits:>} {bandwidthUpBits:>}",
+        "format-ethernet": "WIRED {bandwidthDownBits:>} {bandwidthUpBits:>}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "NO",
         "format-alt": "{ifname}: {ipaddr}",
-	"interval": "5"
     },
     "pulseaudio": {
-        "format": "V {volume}%",
+        "format": "VOL {volume}%",
         "format-muted": "",
-        "format-bluetooth": "V {volume}%",
+        "format-bluetooth": "VOL {volume}%",
         "on-click": "pulsemixer"
     },
 }

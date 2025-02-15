@@ -11,6 +11,7 @@ if status is-interactive
     set -gx XAUTHORITY /tmp/Xauthority
     set -gx PASSWORD_STORE_DIR "$XDG_DATA_HOME/password-store"
     set -gx PATH $PATH $HOME/.local/bin
+    set -gx PATH $PATH $HOME/.config/emacs/bin
 
     if test -z $DISPLAY; and test $XDG_VTNR -eq 1
         exec Hyprland
