@@ -1,0 +1,13 @@
+[manager]
+border_symbol = " "
+
+[status]
+separator_open = ""
+separator_close = ""
+
+# [icon]
+# globs = []
+# dirs  = []
+# files = []
+# exts  = []
+# conds = []
