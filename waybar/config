@@ -26,7 +26,9 @@
         "tooltip": false
     },
     "memory": {
-        "format": "MEM {}%"
+	"interval": 1,
+	"format": "MEM {used:0.1f}G/{total:0.1f}G"
+
     },
     "battery": {
         "states": {
