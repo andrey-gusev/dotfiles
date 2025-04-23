@@ -1,0 +1,13 @@
+#!/bin/bash
+
+file=$1
+time=$2
+
+expires=$(($(date +%s) + $time))
+expires_ms=$((expires * 1000))
+
+link=$(curl -F "file=@$file" -Fexpires=$expires_ms -Fsecret= https://0x0.st)
+
+qrencode -t ANSIUTF8 "$link"
+echo "$link"
+echo "Your file will be deleted after ~$time seconds"

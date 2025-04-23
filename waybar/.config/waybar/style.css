@@ -1,0 +1,94 @@
+* {
+    font-family: "GohuFont Nerd";
+    font-weight: bold;
+    font-size: 12px;
+    min-height: 0;
+    border: none;
+}
+
+window#waybar {
+    background: #000000;
+    color: #ffffff;
+    border-bottom: 1px solid #333333;
+    padding: 2px;
+}
+
+#workspaces,
+#pulseaudio,
+#language,
+#cpu,
+#battery,
+#memory,
+#network,
+#clock,
+#tray {
+    background: transparent;
+    color: #ffffff;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 0px;
+    transition: background 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#network {
+	font-family: monospace;
+}
+
+#workspaces:hover,
+#pulseaudio:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#clock:hover,
+#tray:hover {
+    background: #444444;
+}
+
+#workspaces {
+    padding: 2px;
+}
+
+#workspaces button {
+    background: #1c1c1c; /* Темно-серый для кнопок */
+    color: #ffffff; /* Белый текст */
+    padding: 2px 2px;
+    margin: 2px;
+    border-radius: 2px;
+    transition: background 0.15s ease-in-out;
+}
+
+#workspaces button.occupied {
+    background: #ff5733; /* Красный для занятого рабочего пространства */
+    color: #ffffff;
+    box-shadow: inset 0px 0px 3px #ff5733;
+}
+
+#workspaces button.empty {
+    background: transparent;
+    color: #777777; /* Светло-серый для пустых рабочих пространств */
+}
+
+#workspaces button.focused {
+    background: #33cc33; /* Зеленый для фокусированного рабочего пространства */
+    color: #000000; /* Черный текст */
+    font-weight: bold;
+    border: 1px solid #33cc33;
+    box-shadow: 0px 0px 5px #33cc33;
+}
+
+#workspaces button.urgent {
+    background: #ff0000; /* Красный для срочных рабочих пространств */
+    color: #ffffff;
+    animation: urgent-pulse 1s infinite;
+}
+
+@keyframes urgent-pulse {
+    0% { background: #ff0000; }
+    50% { background: #ff3333; }
+    100% { background: #ff0000; }
+}
+
+#workspaces button.visible {
+    background: #ffffff; /* Желтый для видимых рабочих пространств */
+    color: #000000;
+}

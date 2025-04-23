@@ -1,0 +1,8 @@
+#!/bin/sh
+
+wall=$(find ~/pix/ -type f -name "*.jpg" -o -name "*.png" | shuf -n 1)
+wal -c
+wal -i $wall
+sed -i 's/#//g' $HOME/.cache/wal/colors-foot.ini
+hyprctl hyprpaper preload "$wall"
+hyprctl hyprpaper wallpaper ",$wall"

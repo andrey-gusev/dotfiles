@@ -1,0 +1,58 @@
+{
+    "position": "top",
+    "height": 32,
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-right": ["hyprland/language", "pulseaudio", "cpu", "memory","network", "battery", "tray"],
+    "modules-center": ["clock"],
+    "tray": {
+        "spacing": 10
+    },
+    "hyprland/window": {  
+    "icon": true,
+    "icon-size": 12,
+    },
+    "hyprland/language": {
+    "format-en": "US",
+    "format-ru": "RU",
+    },
+    "clock": {
+    	"interval": 1,
+    	"timezone": "Asia/Yekaterinburg",
+    	"format": "{:%d.%m.%y | %H:%M}",
+    	"tooltip": false,
+    },
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+	"interval": 1,
+	"format": "MEM {used:0.1f}G/{total:0.1f}G"
+
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT {capacity}%",
+        "format-charging": "CB {capacity}%",
+        "format-plugged": "{capacity}%",
+        "format-alt": "{time}",
+    },
+    "network": {
+	"interval": 1,
+        "format-wifi": "Wi-Fi {signalStrength}% {bandwidthDownBits:>} {bandwidthUpBits:>}",
+        "format-ethernet": "WIRED {bandwidthDownBits:>} {bandwidthUpBits:>}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "NO",
+        "format-alt": "{ifname}: {ipaddr}",
+    },
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "",
+        "format-bluetooth": "VOL {volume}%",
+        "on-click": "pulsemixer"
+    },
+}

@@ -1,0 +1,79 @@
+#!/bin/sh
+# поиск фильмов и сериалов с помощью проекта exfreedoomist
+# и моментальный просмотр
+# script by Andrey Gusev©️
+# Проверка наличия параметра query
+if [ -z "$1" ]; then
+  echo "Usage: $0 <query>"
+  exit 1
+fi
+
+# token=""
+token="EGGTSD67UUAT7NVGSHC2UUHJ2YFLMPD6Y4EHJDPQYPBYXX5L"
+query=$1
+
+# Проверка наличия jq и fzf
+command -v jq >/dev/null 2>&1 || { echo "jq is required but not installed"; exit 1; }
+command -v fzf >/dev/null 2>&1 || { echo "fzf is required but not installed"; exit 1; }
+
+# Выполнение запроса
+result=$(curl -k -X 'POST' \
+  'https://api.exfreedomist.com/search' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d "{
+  \"query\": \"$query\",
+  \"trackers\": [],
+  \"order_by\": \"d\",
+  \"filter_by_size\": \"\",
+  \"limit\": 20,
+  \"offset\": 0,
+  \"full_match\": false,
+  \"token\": \"$token\"
+}")
+
+# Проверка пустого ответа
+if [ -z "$result" ]; then
+  echo "No results found for query: $query"
+  exit 1
+fi
+
+# Показ результатов в fzf и выбор магнитного ключа
+magnetkey=$(echo "$result" | jq -r '.data[] | "\(.title) | \(.magnet_key)"' | \
+  fzf | \
+  awk -F ' \| ' '{print $NF}')
+
+# Проверка выбора
+if [ -z "$magnetkey" ]; then
+  echo "No magnet key selected"
+  exit 1
+fi
+
+# Запрос магнитной ссылки
+magnet=$(curl -k -X 'GET' \
+  "https://api.exfreedomist.com/magnet/$magnetkey?token=$token" \
+  -H 'accept: application/json')
+
+# Извлечение магнитной ссылки
+magnet_link=$(echo "$magnet" | jq -r '.data.magnet_link' | grep -o 'magnet:\?[^ ]*' | sed 's/.$//')
+
+echo $magnet_link
+
+if [ ! -d "/tmp/peerflix" ]; then
+  # Если папка не существует, создаём её
+  mkdir -p /tmp/peerflix
+  echo "Папка /tmp/peerflix создана."
+# else
+#   echo "Папка /tmp/peerflix уже существует."
+fi
+
+# Запуск peerflix
+if [ -n "$magnet_link" ]; then
+  peerflix "$magnet_link" -f /tmp/peerflix -k -l -r
+  # webtorrent "$magnet_link" -i --mpv
+else
+  echo "Magnet link not found"
+  exit 1
+fi
+
+rm -rf /tmp/peerflix/*
