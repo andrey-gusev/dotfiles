@@ -1,94 +1,113 @@
+@import url("../../.cache/wal/colors-waybar.css");
+
+
 * {
-    font-family: "GohuFont Nerd";
+    font-family: "GohuFont Nerd", monospace;
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
     border: none;
+    margin: 0;
+    padding: 0;
 }
 
-window#waybar {
-    background: #000000;
-    color: #ffffff;
-    border-bottom: 1px solid #333333;
-    padding: 2px;
-}
-
-#workspaces,
+#window,
+#clock,
 #pulseaudio,
 #language,
 #cpu,
-#battery,
 #memory,
 #network,
-#clock,
-#tray {
+#tray,
+#custom-cava,
+#custom-playerctl {
     background: transparent;
-    color: #ffffff;
-    padding: 2px 6px;
-    margin: 2px;
-    border-radius: 0px;
-    transition: background 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0 8px;
+    margin: 0 4px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+window#waybar {
+    background: @background;
+    color: @foreground;
+    padding: 0;
+    margin: 0;
 }
 
 #network {
-	font-family: monospace;
+    font-family: monospace;
 }
 
-#workspaces:hover,
+#window,
+#clock {
+    color: @color4;
+}
+
+#pulseaudio { color: @color1; }
+#language { color: @color2; }
+#cpu { color: @color3; }
+#memory { color: @color4; }
+#network { color: @color5; }
+#custom-cava { color: @color6; }
+#custom-playerctl { color: @color1; }
+
 #pulseaudio:hover,
+#language:hover,
 #cpu:hover,
 #memory:hover,
 #network:hover,
 #clock:hover,
+#custom-cava:hover,
+#custom-playerctl:hover,
 #tray:hover {
-    background: #444444;
-}
-
-#workspaces {
-    padding: 2px;
+    background: #333333;
 }
 
 #workspaces button {
-    background: #1c1c1c; /* Темно-серый для кнопок */
-    color: #ffffff; /* Белый текст */
-    padding: 2px 2px;
-    margin: 2px;
-    border-radius: 2px;
-    transition: background 0.15s ease-in-out;
+    color: @color7;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    transition: all 0.2s ease; 
+    min-width: 24px;
+    min-height: 24px;
+}
+
+#workspaces button:hover {
+    background: @color1; /* или другой фон при наведении */
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+}
+
+#workspaces button.active {
+    background: @color2;      /* Яркий фон для активной */
+    color: @background;       /* Контрастный текст */
+    border-color: @color2;
 }
 
 #workspaces button.occupied {
-    background: #ff5733; /* Красный для занятого рабочего пространства */
-    color: #ffffff;
-    box-shadow: inset 0px 0px 3px #ff5733;
+    border-color: @color1;
 }
 
-#workspaces button.empty {
-    background: transparent;
-    color: #777777; /* Светло-серый для пустых рабочих пространств */
-}
+/* #workspaces button.empty { */
+/*     color: #777777; */
+/*     border-color: #777777; */
+/* } */
 
-#workspaces button.focused {
-    background: #33cc33; /* Зеленый для фокусированного рабочего пространства */
-    color: #000000; /* Черный текст */
-    font-weight: bold;
-    border: 1px solid #33cc33;
-    box-shadow: 0px 0px 5px #33cc33;
-}
 
 #workspaces button.urgent {
-    background: #ff0000; /* Красный для срочных рабочих пространств */
-    color: #ffffff;
-    animation: urgent-pulse 1s infinite;
+    background: @color3;
+    color: @foreground;
+    animation: urgent-pulse 1.5s infinite;
 }
 
-@keyframes urgent-pulse {
-    0% { background: #ff0000; }
-    50% { background: #ff3333; }
-    100% { background: #ff0000; }
+#tray > .passive {
+    -gtk-icon-effect: dim;
 }
 
-#workspaces button.visible {
-    background: #ffffff; /* Желтый для видимых рабочих пространств */
-    color: #000000;
+#tray > .active {
+    -gtk-icon-effect: highlight;
 }

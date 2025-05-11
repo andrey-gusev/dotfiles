@@ -20,6 +20,7 @@ if status is-interactive
     abbr p "sudo pacman"
     abbr v "nvim"
     abbr sdn "shutdown now"
+    abbr sys "sudo systemctl"
     abbr g "git"
     abbr e "emacs"
     abbr y "yay"

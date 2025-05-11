@@ -6,3 +6,5 @@ wal -i $wall
 sed -i 's/#//g' $HOME/.cache/wal/colors-foot.ini
 hyprctl hyprpaper preload "$wall"
 hyprctl hyprpaper wallpaper ",$wall"
+pkill waybar
+waybar &
