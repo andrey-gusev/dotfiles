@@ -93,12 +93,9 @@ putgitrepo() {
 
 usercheck() {
     if id -u "$name" >/dev/null 2>&1; then
-        whiptail --title "WARNING" --yes-button "CONTINUE" \
-            --no-button "Cancel" \
-            --yesno "The user \`$name\` already exists. GARBS will overwrite dotfiles/settings, but not personal files (Documents, Videos, etc.). Continue?" 14 70 || {
-                echo "Installation aborted by user."
-                exit 1
-            }
+        echo "WARNING: The user '$name' already exists. GARBS will overwrite dotfiles/settings but not personal files."
+        read -p "Do you want to continue? [y/N]: " answer
+        [[ "$answer" =~ ^[Yy] ]] || { echo "Installation aborted."; exit 1; }
     fi
 }
 
