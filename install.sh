@@ -6,7 +6,7 @@ set -euo pipefail
 ### CONFIGURATION ###
 dotfilesrepo="https://github.com/andrey-gusev/dotfiles.git"
 repobranch="main"
-progsfile="https://raw.githubusercontent.com/andrey-gusev/dotfiles/refs/heads/main/progs.csv"
+progsfile="https://raw.githubusercontent.com/andrey-gusev/dotfiles/progs.csv"
 aurhelper="yay"
 logfile="/tmp/install_errors.log"
 
@@ -91,21 +91,35 @@ putgitrepo() {
     rm -rf "$dir/.git"
 }
 
+usercheck() {
+    if id -u "$name" >/dev/null 2>&1; then
+        whiptail --title "WARNING" --yes-button "CONTINUE" \
+            --no-button "Cancel" \
+            --yesno "The user \`$name\` already exists. GARBS will overwrite dotfiles/settings, but not personal files (Documents, Videos, etc.). Continue?" 14 70 || {
+                echo "Installation aborted by user."
+                exit 1
+            }
+    fi
+}
+
 ### MAIN SCRIPT ###
 [ "$EUID" -ne 0 ] && { echo "Run as root!" >>"$logfile"; exit 1; }
 
 check_internet
 
 # Имя пользователя
-read -p "Enter username to create: " name
-id "$name" &>/dev/null && { echo "User $name already exists!" >>"$logfile"; exit 1; }
+read -p "Enter username to install for: " name
 
-# Создаём пользователя
-echo "Creating user $name..."
-useradd -m -G wheel -s /bin/zsh "$name" || { echo "Failed to create user $name" >>"$logfile"; exit 1; }
+# Проверка существующего пользователя
+usercheck
 
-echo "Setting password for $name..."
-passwd "$name" || { echo "Failed to set password for $name" >>"$logfile"; exit 1; }
+# Создаём пользователя, если он не существует
+if ! id -u "$name" >/dev/null 2>&1; then
+    echo "Creating user $name..."
+    useradd -m -G wheel -s /bin/zsh "$name" || { echo "Failed to create user $name" >>"$logfile"; exit 1; }
+    echo "Setting password for $name..."
+    passwd "$name" || { echo "Failed to set password for $name" >>"$logfile"; exit 1; }
+fi
 
 repodir="/home/$name/.local/src"
 mkdir -p "$repodir" || { echo "Failed to create $repodir" >>"$logfile"; exit 1; }
@@ -124,4 +138,4 @@ putgitrepo "$dotfilesrepo" "/home/$name"
 # Установка zsh по умолчанию
 chsh -s /bin/zsh "$name" || { echo "Failed to set zsh as default shell for $name" >>"$logfile"; exit 1; }
 
-echo "Установка завершена! Проверьте $logfile на наличие ошибок. Войдите как $name и пользуйтесь окружением."
+echo "Installation complete! Check $logfile for any errors. Log in as $name and enjoy your environment."
