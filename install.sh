@@ -19,6 +19,20 @@ check_internet() {
     fi
 }
 
+install_aur_helper() {
+    if ! command -v yay &>/dev/null; then
+        echo "Installing yay AUR helper..."
+        cd /tmp
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si --noconfirm || { echo "Failed to install yay" >>"$logfile"; exit 1; }
+        cd /tmp
+        rm -rf yay
+    else
+        echo "yay is already installed, skipping..."
+    fi
+}
+
 installpkg() {
     echo "Installing $1 via pacman..."
     pacman --noconfirm --needed -S "$1" 2>>"$logfile" || { echo "Failed to install $1 via pacman" >>"$logfile"; exit 1; }
@@ -120,6 +134,8 @@ fi
 
 repodir="/home/$name/.local/src"
 mkdir -p "$repodir" || { echo "Failed to create $repodir" >>"$logfile"; exit 1; }
+
+install_aur_helper
 
 install_build_tools
 
