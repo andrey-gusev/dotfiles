@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec >/dev/null 2>&1
+
+if [ -n "$1" ] && [ -f "$1" ]; then
+	wall="$1"
+else
+	wall=$(find "$HOME/pix" -type f -name "*.jpg" -o -name "*.png" | shuf -n 1)
+fi
+wal -c
+wal -i "$wall"
+hyprctl hyprpaper preload "$wall"
+hyprctl hyprpaper wallpaper ",$wall"
+pkill waybar
+waybar &

@@ -1,0 +1,116 @@
+@import url("../../.cache/wal/colors-waybar.css");
+
+
+* {
+    font-family: "GohuFont Nerd", monospace;
+    font-weight: bold;
+    font-size: 12px;
+    min-height: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+#window,
+#clock,
+#pulseaudio,
+#battery,
+#language,
+#cpu,
+#memory,
+#network,
+#tray,
+#custom-cava,
+#custom-playerctl {
+    background: transparent;
+    padding: 0 8px;
+    margin: 0 4px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+window#waybar {
+    background: @background;
+    color: @foreground;
+    padding: 0;
+    margin: 0;
+}
+
+#network {
+    font-family: monospace;
+}
+
+#window,
+#clock {
+    color: @color4;
+}
+
+#pulseaudio { color: @color1; }
+#language { color: @color2; }
+#cpu { color: @color3; }
+#memory { color: @color4; }
+#battery { color: @color2; }
+#network { color: @color5; }
+#custom-cava { color: @color6; }
+#custom-playerctl { color: @color1; }
+
+#pulseaudio:hover,
+#language:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#clock:hover,
+#battery:hover,
+#custom-cava:hover,
+#custom-playerctl:hover,
+#tray:hover {
+    background: #333333;
+}
+
+#workspaces button {
+    color: @color7;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    transition: all 0.2s ease; 
+    min-width: 20px;
+    min-height: 20px;
+}
+
+#workspaces button:hover {
+    background: @color1; /* или другой фон при наведении */
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+}
+
+#workspaces button.active {
+    background: @color2;      /* Яркий фон для активной */
+    color: @background;       /* Контрастный текст */
+    border-color: @color2;
+}
+
+#workspaces button.occupied {
+    border-color: @color1;
+}
+
+/* #workspaces button.empty { */
+/*     color: #777777; */
+/*     border-color: #777777; */
+/* } */
+
+
+#workspaces button.urgent {
+    background: @color3;
+    color: @foreground;
+    animation: urgent-pulse 1.5s infinite;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .active {
+    -gtk-icon-effect: highlight;
+}

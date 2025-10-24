@@ -1,0 +1,11 @@
+[user]
+	name = Andrey Gusev
+	email = Anderson14766@mail.ru
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[color]
+	ui = auto
+[url "git@github.com:"]
+	insteadOf = https://github.com/

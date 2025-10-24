@@ -1,0 +1,9 @@
+window {
+    width: 300px;
+}
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    font: "FiraCode Nerd Font 12";
+}
+@theme "~/.cache/wal/colors-rofi-light.rasi"
