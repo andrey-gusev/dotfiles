@@ -9,6 +9,7 @@
 ,gnupg,
 ,grep,
 ,grim,
+,htop,Монитор процессов
 ,hyprland,тайловый оконный менеджер
 ,hyprpaper,
 ,imagemagick,
@@ -27,6 +28,7 @@
 ,pulsemixer,
 ,python,
 ,python-pywal,
+,qrencode,
 ,qutebrowser,
 ,rofi,
 ,rsync,
@@ -38,6 +40,7 @@
 ,tesseract-data-eng,
 ,tesseract-data-rus,
 ,ttf-firacode-nerd,
+,ttf-gohu-nerd,
 ,waybar,
 ,waylock,
 ,wl-clipboard,
@@ -47,6 +50,5 @@
 ,zathura-djvu,
 ,zathura-pdf-mupdf,
 ,zathura-ps,
-A,htop-vim-git,Монитор процессов
 A,peaclock,
 A,ttf-noto-emoji-monochrome,
