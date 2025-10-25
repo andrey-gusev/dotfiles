@@ -1,5 +1,4 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
     fish_vi_key_bindings
     set fish_greeting ""
     set -gx EDITOR nvim
@@ -22,13 +21,15 @@ if status is-interactive
     abbr sdn "shutdown now"
     abbr sys "sudo systemctl"
     abbr g "git"
+    abbr t "tailscale"
     abbr e "emacs"
     abbr y "yay"
-    abbr cf "cd ~/.config && ls -lh"
-    abbr cfh "nvim ~/.config/hypr/hyprland.conf"
-    abbr cfv "nvim ~/.config/nvim/init.vim"
-    abbr cft "nvim ~/.config/foot/foot.conf"
-    abbr cfk "nvim ~/.config/kitty/kitty.conf"
-    abbr cff "nvim ~/.config/fish/config.fish"
-    abbr cfw "nvim ~/.config/waybar/config"
+    abbr cf "chezmoi edit ~/.config/"
+    abbr sc "chezmoi edit ~/.local/bin/"
+    abbr ca "chezmoi apply" 
+    abbr cfh "chezmoi edit ~/.config/hypr/hyprland.conf"
+    abbr cfv "chezmoi edit ~/.config/nvim/init.vim"
+    abbr cfk "chezmoi edit ~/.config/kitty/kitty.conf"
+    abbr cff "chezmoi edit ~/.config/fish/config.fish"
+    abbr cfw "chezmoi edit ~/.config/waybar/config"
 end
