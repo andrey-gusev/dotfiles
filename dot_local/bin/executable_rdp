@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xfreerdp /v:$(tailscale ip -4 windows) /gfx-h264 /dynamic-resolution /clipboard /sound
