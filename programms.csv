@@ -1,7 +1,6 @@
 ,bat,
 ,brightnessctl,
 ,cmatrix,
-,nsxiv,
 ,curl,
 ,ffmpeg,
 ,fish,Оболочка терминала
@@ -15,10 +14,12 @@
 ,hyprpaper,
 ,imagemagick,
 ,kitty,
+,ly,
 ,mako,
 ,mpv,
 ,neovim,Текстовый редактор
 ,networkmanager,
+,nsxiv,
 ,openssh,
 ,pipewire,
 ,pipewire-alsa,
