@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+record() {
+    wf-recorder -a -f $(date "+%Y-%m-%d-%H-%M").mkv & echo $! > /tmp/recpid
+}
+
+end() {
+    kill -15 "$(cat /tmp/recpid)" && rm -rf /tmp/recpid
+    notify-send "stop rec"
+}
+
+([[ -f /tmp/recpid ]] && end && exit 0) || record
