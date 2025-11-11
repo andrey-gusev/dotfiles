@@ -2,7 +2,7 @@
 
 
 * {
-    font-family: "GohuFont Nerd", monospace;
+    font-family: "FiraCode Nerd Font", monospace;
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
@@ -45,14 +45,14 @@ window#waybar {
     color: @color4;
 }
 
-#pulseaudio { color: @color1; }
-#language { color: @color2; }
-#cpu { color: @color3; }
+#pulseaudio { color: @color4; }
+#language { color: @color4; }
+#cpu { color: @color4; }
 #memory { color: @color4; }
-#battery { color: @color2; }
-#network { color: @color5; }
-#custom-cava { color: @color6; }
-#custom-playerctl { color: @color1; }
+#battery { color: @color4; }
+#network { color: @color4; }
+#custom-cava { color: @color4; }
+#custom-playerctl { color: @color4; }
 
 #pulseaudio:hover,
 #language:hover,

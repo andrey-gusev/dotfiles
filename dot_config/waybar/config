@@ -42,7 +42,7 @@
         "format-wifi": "wi-fi {signalStrength}% {ipaddr}",
         "format-ethernet": "{ipaddr}",
         "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "OFF",
+        "format-disconnected": "off",
 	"format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
 	"tooltip-format": "{ifname}"
     },
