@@ -16,7 +16,11 @@ if status is-interactive
         exec Hyprland
     end
 
+    abbr -a --position anywhere -- --help '--help | bat -plhelp'
+    abbr -a --position anywhere -- -h '-h | bat -plhelp'
     abbr p "sudo pacman"
+    abbr man "batman"
+    abbr cat "bat"
     abbr v "nvim"
     abbr sdn "shutdown now"
     abbr sys "sudo systemctl"
@@ -26,7 +30,7 @@ if status is-interactive
     abbr gc "git commit -m"
     abbr gp "git push"
     abbr gr "git remote set-url origin git@github.com:andrey-guesv/"
-    abbr t "tailscale"
+    abbr t "sudo tailscale"
     abbr e "emacs"
     abbr y "yay"
     abbr cdc "cd ~/.local/share/chezmoi/"
@@ -39,3 +43,4 @@ if status is-interactive
     abbr cff "chezmoi edit ~/.config/fish/config.fish"
     abbr cfw "chezmoi edit ~/.config/waybar/config"
 end
+starship init fish | source
