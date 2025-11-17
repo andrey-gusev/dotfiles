@@ -2,10 +2,13 @@
     "position": "top",
     "height": 14,
     "margin": 0,
+    "no-center": true,
+    "expand-left": true,
     "reload_style_on_change": true,
     "spacing": 0,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-right": ["custom/playerctl", "hyprland/language", "pulseaudio", "cpu", "memory", "battery", "network", "clock"],
+    "modules-center": [],
+    "modules-right": ["hyprland/language", "pulseaudio", "disk", "cpu", "memory", "upower", "network", "clock"],
     "tray": {
         "spacing": 0
     },
@@ -34,8 +37,25 @@
         "tooltip": false
     },
     "battery": {
+        "states": {
+            "good": 95,
+            "warning": 25,
+            "critical": 15
+        },
     	"format": "bat {capacity}%",
-	"interval": 10
+        "format-charging": "ac {capacity}%",
+        "interval": 10
+    },
+    "upower": {
+        "format": "{percentage} ({time})",
+        "show-icon": false,
+        "tooltip-spacing": 10
+    },
+    "disk": {
+        "interval": 30,
+        "format": "disk {specific_used:0.0f}/{specific_total:0.0f}G",
+        "path": "/",
+        "unit": "GB"
     },
     "network": {
         "interval": 2,
@@ -43,8 +63,8 @@
         "format-ethernet": "{ipaddr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "off",
-	"format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
-	"tooltip-format": "{ifname}"
+        "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
+        "tooltip-format": "{ifname}"
     },
     "pulseaudio": {
         "format": "vol {volume}%",
@@ -53,10 +73,10 @@
         "on-click": "pulsemixer"
     },
     "custom/playerctl": {
-    "format": "{}",
-    "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
-    "interval": 1,
-    "return-type": "text",
-    "on-click": "playerctl play-pause"
+        "format": "{}",
+        "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
+        "interval": 1,
+        "return-type": "text",
+        "on-click": "playerctl play-pause"
     },
 }

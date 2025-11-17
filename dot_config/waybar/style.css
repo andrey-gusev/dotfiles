@@ -1,8 +1,7 @@
 @import url("../../.cache/wal/colors-waybar.css");
 
-
 * {
-    font-family: "FiraCode Nerd Font", monospace;
+    font-family: "FiraCode Nerd Font";
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
@@ -14,7 +13,8 @@
 #window,
 #clock,
 #pulseaudio,
-#battery,
+#disk,
+#upower,
 #language,
 #cpu,
 #memory,
@@ -23,9 +23,9 @@
 #custom-cava,
 #custom-playerctl {
     background: transparent;
-    padding: 0 8px;
-    margin: 0 4px;
-    border-radius: 4px;
+    padding: 0 10px;
+    margin: 0 0px;
+    border-radius: 0px;
     transition: background 0.2s ease;
 }
 
@@ -36,31 +36,25 @@ window#waybar {
     margin: 0;
 }
 
-#network {
-    font-family: monospace;
-}
-
-#window,
-#clock {
-    color: @color4;
-}
-
-#pulseaudio { color: @color4; }
-#language { color: @color4; }
+#window { color: @color9; }
+#pulseaudio { color: @color2; }
+#language { color: @color3; }
 #cpu { color: @color4; }
-#memory { color: @color4; }
-#battery { color: @color4; }
-#network { color: @color4; }
-#custom-cava { color: @color4; }
-#custom-playerctl { color: @color4; }
+#memory { color: @color5; }
+#upower { color: @color6; }
+#network { color: @color7; }
+#clock { color: @color10; }
+#disk { color: @color11; }
+
 
 #pulseaudio:hover,
+#disk:hover,
 #language:hover,
 #cpu:hover,
 #memory:hover,
 #network:hover,
 #clock:hover,
-#battery:hover,
+#upower:hover,
 #custom-cava:hover,
 #custom-playerctl:hover,
 #tray:hover {
@@ -70,7 +64,7 @@ window#waybar {
 #workspaces button {
     color: @color7;
     border: none;
-    border-radius: 0;
+    border-radius: 0px;
     padding: 0;
     margin: 0;
     transition: all 0.2s ease; 
@@ -79,15 +73,15 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    background: @color1; /* или другой фон при наведении */
+    background: @color1;
     box-shadow: none;
     text-shadow: none;
     outline: none;
 }
 
 #workspaces button.active {
-    background: @color2;      /* Яркий фон для активной */
-    color: @background;       /* Контрастный текст */
+    background: @color2;
+    color: @background;
     border-color: @color2;
 }
 
