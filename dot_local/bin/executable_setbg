@@ -8,7 +8,11 @@ else
 	wall=$(find "$HOME/pix" -type f -name "*.jpg" -o -name "*.png" | shuf -n 1)
 fi
 wal -c
-wal -i "$wall"
+# Цветовая схема берётся из фона рабочего стола
+# wal -i "$wall"
+# Цветовая схема статическая
+# wal --theme sexy-hund
+wal --theme gruvbox
 hyprctl hyprpaper preload "$wall"
 hyprctl hyprpaper wallpaper ",$wall"
 pkill waybar
