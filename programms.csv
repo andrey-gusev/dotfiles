@@ -10,7 +10,7 @@
 ,gnupg,
 ,grep,
 ,grim,
-,htop,Монитор процессов
+,hypridle,
 ,hyprland,тайловый оконный менеджер
 ,hyprpaper,
 ,imagemagick,
@@ -37,6 +37,7 @@
 ,rofi,
 ,rsync,
 ,slurp,
+,starship,
 ,swaync,
 ,tailscale,
 ,telegram-desktop,
@@ -56,4 +57,5 @@
 ,zathura-djvu,
 ,zathura-pdf-mupdf,
 ,zathura-ps,
+A,htop-vim-git,Монитор процессов
 A,ttf-noto-emoji-monochrome,
