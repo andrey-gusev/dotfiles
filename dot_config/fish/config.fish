@@ -42,5 +42,6 @@ if status is-interactive
     abbr cfk "chezmoi edit ~/.config/kitty/kitty.conf"
     abbr cff "chezmoi edit ~/.config/fish/config.fish"
     abbr cfw "chezmoi edit ~/.config/waybar/config"
+    abbr cfws "chezmoi edit ~/.config/waybar/style.css"
 end
 starship init fish | source
