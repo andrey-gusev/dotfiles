@@ -1,4 +1,5 @@
 ,bat,
+,bat-extras,
 ,brightnessctl,
 ,cmatrix,
 ,curl,
@@ -14,8 +15,10 @@
 ,hyprpaper,
 ,imagemagick,
 ,kitty,
-,ly,
+,less,
+,libnotify,
 ,mako,
+,man-db,
 ,mpv,
 ,neovim,Текстовый редактор
 ,networkmanager,
@@ -24,7 +27,6 @@
 ,pipewire,
 ,pipewire-alsa,
 ,pipewire-audio,
-,pipewire-jack,
 ,pipewire-pulse,
 ,playerctl,
 ,pulsemixer,
@@ -41,6 +43,7 @@
 ,tesseract,
 ,tesseract-data-eng,
 ,tesseract-data-rus,
+,tgpt,Нейросеть в твоём терминале
 ,ttf-firacode-nerd,
 ,ttf-gohu-nerd,
 ,waybar,
