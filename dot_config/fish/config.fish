@@ -29,7 +29,7 @@ if status is-interactive
     abbr ga "git add"
     abbr gc "git commit -m"
     abbr gp "git push"
-    abbr gr "git remote set-url origin git@github.com:andrey-guesv/"
+    abbr gr "git remote set-url origin git@github.com:andrey-gusev/"
     abbr t "sudo tailscale"
     abbr e "emacs"
     abbr y "yay"
