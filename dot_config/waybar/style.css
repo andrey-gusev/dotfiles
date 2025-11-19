@@ -3,30 +3,33 @@
 * {
     font-family: "FiraCode Nerd Font";
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     min-height: 0;
     border: none;
     margin: 0;
     padding: 0;
 }
 
-#window,
-#clock,
-#pulseaudio,
-#disk,
-#upower,
-#language,
 #cpu,
+#custom-clock,
+#custom-wttr,
+#disk,
+#language,
 #memory,
 #network,
-#tray,
-#custom-cava,
-#custom-playerctl {
+#pulseaudio,
+#upower,
+#window {
     background: transparent;
     padding: 0 10px;
-    margin: 0 0px;
+    margin: 0;
     border-radius: 0px;
     transition: background 0.2s ease;
+}
+
+#tray {
+    margin: 0;
+    padding: 0 5px;
 }
 
 window#waybar {
@@ -36,28 +39,31 @@ window#waybar {
     margin: 0;
 }
 
-#window { color: @color9; }
-#pulseaudio { color: @color2; }
-#language { color: @color3; }
 #cpu { color: @color4; }
-#memory { color: @color5; }
-#upower { color: @color6; }
-#network { color: @color7; }
-#clock { color: @color10; }
+#custom-clock { color: @color10; }
+#custom-wttr { color: @color12; }
 #disk { color: @color11; }
+#language { color: @color3; }
+#memory { color: @color5; }
+#network { color: @color7; }
+#pulseaudio { color: @color2; }
+#tray { color: @color13; }
+#upower { color: @color6; }
+#window { color: @color9; }
 
 
-#pulseaudio:hover,
+#cpu:hover,
+#custom-cava:hover,
+#custom-clock:hover,
+#custom-playerctl:hover,
+#custom-wttr:hover,
 #disk:hover,
 #language:hover,
-#cpu:hover,
 #memory:hover,
 #network:hover,
-#clock:hover,
-#upower:hover,
-#custom-cava:hover,
-#custom-playerctl:hover,
-#tray:hover {
+#pulseaudio:hover,
+#tray:hover,
+#upower:hover {
     background: #333333;
 }
 
