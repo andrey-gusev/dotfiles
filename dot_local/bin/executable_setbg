@@ -12,7 +12,7 @@ wal -c
 # wal -i "$wall"
 # Цветовая схема статическая
 # wal --theme sexy-hund
-wal --theme gruvbox
+wal --theme base16-gruvbox-soft
 hyprctl hyprpaper preload "$wall"
 hyprctl hyprpaper wallpaper ",$wall"
 pkill waybar
