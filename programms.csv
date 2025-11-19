@@ -22,6 +22,7 @@
 ,mpv,
 ,neovim,Текстовый редактор
 ,networkmanager,
+,noto-fonts-emoji,
 ,nsxiv,
 ,openssh,
 ,pipewire,
@@ -35,6 +36,7 @@
 ,qrencode,
 ,qutebrowser,
 ,rofi,
+,rofi-emoji,
 ,rsync,
 ,slurp,
 ,starship,
@@ -51,6 +53,7 @@
 ,waylock,
 ,wf-recorder,
 ,wl-clipboard,
+,wtype,
 ,yazi,
 ,yt-dlp,
 ,zathura,
