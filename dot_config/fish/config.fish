@@ -1,4 +1,5 @@
 fish_vi_key_bindings
+function fish_mode_prompt; end
 set fish_greeting ""
 set -gx EDITOR nvim
 set -gx TERMINAL foot
