@@ -12,6 +12,9 @@ set -gx PASSWORD_STORE_DIR "$XDG_DATA_HOME/password-store"
 set -gx PATH $PATH $HOME/.local/bin
 set -gx PATH $PATH $HOME/.config/emacs/bin
 
+bind -M insert alt-l accept-autosuggestion 
+bind -M insert ctrl-l forward-word
+
 if test -z $DISPLAY; and test $XDG_VTNR -eq 1
     exec Hyprland
 end
