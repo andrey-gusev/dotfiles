@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl -s 'wttr.in/Yekaterinburg?M&lang=ru&format=%c%t+(%f)' | sed 's/  //g'
