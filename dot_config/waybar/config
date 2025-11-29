@@ -99,7 +99,7 @@
         "on-click": "playerctl play-pause"
     },
     "custom/wttr": {
-        "exec": "curl 'wttr.in/Yekaterinburg?M&lang=ru&format=%t%c\n'",
-        "interval": 3600,
+        "exec": "wttr",
+        "interval": 600,
     },
 }
