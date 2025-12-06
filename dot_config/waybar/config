@@ -30,7 +30,6 @@
     "hyprland/window": {
         "icon": true,
         "icon-size": 14,
-        "max-length": 80
     },
     "hyprland/language": {
         "format-en": "🇺🇸",
