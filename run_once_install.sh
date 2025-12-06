@@ -3,7 +3,7 @@
 set -e
 export TERM=ansi
 
-CSV_FILE="programs.csv"
+CSV_FILE="$HOME/.local/share/chezmoi/programs.csv"
 
 welcomemsg() {
 	whiptail --title "Добро пожаловать!" \
