@@ -16,7 +16,7 @@ bind -M insert alt-l accept-autosuggestion
 bind -M insert ctrl-l forward-word
 
 if test -z $DISPLAY; and test $XDG_VTNR -eq 1
-    exec Hyprland
+    exec start-hyprland
 end
 
 # abbr -a --position anywhere -- --help '--help | bat -plhelp'
