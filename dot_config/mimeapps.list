@@ -10,4 +10,5 @@ application/pdf=org.pwmt.zathura.desktop
 application/djvu=org.pwmt.zathura.desktop
 video/x-matroska=mpv.desktop
 video/mp4=mpv.desktop
+video/webm=mpv.desktop
 inode/directory=yazi.desktop
