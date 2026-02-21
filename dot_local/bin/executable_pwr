@@ -1,0 +1,11 @@
+#!/bin/bash
+
+chosen=$(echo -e "💀 Shutdown\n🔄 Reboot\n🌙 Sleep\n🚪 Exit" | rofi -dmenu -i -p "⚡ Power control")
+
+case "$chosen" in
+    *Shutdown*) systemctl poweroff ;;
+    *Reboot*)   systemctl reboot ;;
+    *Sleep*)    systemctl suspend ;;
+    *Exit*)     hyprctl dispatch exit ;;
+    *) exit 1 ;;
+esac
