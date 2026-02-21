@@ -3,6 +3,7 @@
 ,bluetui
 ,bluez
 ,brightnessctl
+,btop
 ,chafa
 ,cmatrix
 ,curl
@@ -13,7 +14,6 @@
 ,fzf
 ,gnupg
 ,grep
-,htop
 ,hypridle
 ,hyprland
 ,hyprpaper
@@ -25,6 +25,7 @@
 ,man-db
 ,mpv
 ,mpv-mpris
+,ncdu
 ,neovim
 ,networkmanager
 ,noto-fonts-emoji
