@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 
+PID_FILE="/tmp/recpid"
+SAVE_DIR="$HOME/recvids"
+
+# Создаем папку, если её нет
+mkdir -p "$SAVE_DIR"
+
 record() {
-    wf-recorder -a -f $(date "+%Y-%m-%d-%H-%M").mkv & echo $! > /tmp/recpid
+    # Записываем PID сразу при запуске
+    wf-recorder -a -f "$SAVE_DIR/$(date +%Y-%m-%d-%H-%M-%S).mp4" & 
+    echo $! > "$PID_FILE"
+    notify-send "Запись началась"
 }
 
 end() {
-    kill -15 "$(cat /tmp/recpid)" && rm -rf /tmp/recpid
-    notify-send "stop rec"
+    if [[ -f "$PID_FILE" ]]; then
+        kill -15 "$(cat "$PID_FILE")" && rm "$PID_FILE"
+        notify-send "Запись сохранена" "$SAVE_DIR"
+    fi
 }
 
-([[ -f /tmp/recpid ]] && end && exit 0) || record
+if [[ -f "$PID_FILE" ]]; then
+    end
+else
+    record
+fi
