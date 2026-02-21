@@ -11,4 +11,4 @@ application/djvu=org.pwmt.zathura.desktop
 video/x-matroska=mpv.desktop
 video/mp4=mpv.desktop
 video/webm=mpv.desktop
-inode/directory=yazi.desktop
+inode/directory=lf.desktop
