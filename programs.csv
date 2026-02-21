@@ -1,63 +1,61 @@
-,bat,"Красивый и функциональный аналог cat с подсветкой синтаксиса, нумерацией строк, Git-интеграцией"
-,bat-extras,"Набор полезных утилит поверх bat: batgrep, batman (man-страницы в стиле bat), batdiff и др."
-,bluetui,"TUI-интерфейс для управления Bluetooth (альтернатива bluetoothctl с удобным меню)"
-,bluez,"Стек Bluetooth для Linux - необходим для работы bluetui и связи с устройствами"
-,brightnessctl,"Утилита для изменения яркости экрана через sysfs (работает без root, в отличие от xbacklight)"
-,cmatrix,"Эффект «Матрицы» в терминале - для развлечения и проверки шрифтов/глифов"
-,curl,"Универсальный инструмент для передачи данных по URL (скачивание, API-запросы, отладка)"
-,ffmpeg,"Мощный мультимедийный конвертер и стример - основа для записи экрана, обрезки видео и т.д."
-,fish,"Дружелюбная современная оболочка с автоподстановкой, синтаксисом и легко читаемыми функциями"
-,foot,"Лёгкий и быстрый Wayland-терминал, оптимизированный под GPU-рендеринг и ligatures"
-,freerdp2,"Клиент RDP для подключения к удалённым Windows/Linux-машинам (поддержка Wayland через wf-recorder и т.п.)"
-,fzf,"Нечёткий поиск в реальном времени - для файлов, истории команд, процессов и интеграции с vim/rofi"
-,gnupg,"GNU Privacy Guard - шифрование, цифровые подписи, управление PGP-ключами (безопасность и подпись коммитов)"
-,grep,"Стандарт поиска текста по шаблону (регулярные выражения) - работает в связке с fzf, bat и less"
-,grim,"Скриншот-утилита для Wayland - делает снимки экрана или выделенной области (часто с slurp)"
-,htop,"Интерактивный монитор процессов - цветной, с деревом, сортировкой, убийством задач"
-,hypridle,"Менеджер бездействия для Hyprland: выключение экрана, блокировка (waylock), приостановка через timeout"
-,hyprland,"Динамический тайлинг-композитор для Wayland - современная, быстрая и гибкая замена i3/Sway"
-,hyprpaper,"Лёгкий обои-менеджер для Hyprland - поддержка нескольких мониторов, масштабирования, GIF"
-,imagemagick,"Набор инструментов для обработки изображений: resize, convert, blur, watermark - можно в скриптах"
-,less,"Улучшенный пейджер (вместо more) - прокрутка вверх/вниз, поиск, подсветка, работает с man/bat"
-,libnotify,"Библиотека для отправки уведомлений (используется mako, скриптами, telegram-desktop)"
-,mako,"Лёгкий и настраиваемый демон уведомлений для Wayland - минималистичный, без зависимостей от GTK"
-,man-db,"Система man-страниц - документация по командам и API (обязательна для любого системного пользователя)"
-,mpv,"Минималистичный, мощный видеоплеер с поддержкой субтитров, скриптов и аппаратного ускорения"
-,mpv-mpris,"Добавляет поддержку MPRIS (Media Player Remote Interface) в mpv - управление через mpris-proxy, виджеты"
-,neovim,"Современный vim: асинхронность, LSP, Treesitter, Lua-конфиги - основа для IDE-подобной среды"
-,networkmanager,"Управление сетями (Wi-Fi, Ethernet, VPN) через nmcli или графические оболочки (менеджер подключений)"
-,noto-fonts-emoji,"Google Noto Emoji - полноцветные эмодзи, совместимые с большинством приложений (дополняет монохромные)"
-,nsxiv,"Лёгкий просмотрщик изображений для X11 (но работает и в XWayland) - быстрый, скриптуемый, с кэшированием"
-,openssh,"SSH-клиент и сервер - удалённый доступ, туннелирование, копирование файлов (scp/sftp)"
-,pipewire,"Современная аудио/видео инфраструктура для Linux - замена PulseAudio и JACK, с низкой задержкой"
-,pipewire-alsa,"Мост для ALSA-приложений (старые программы) → PipeWire"
-,pipewire-audio,"Основные аудио-сервисы PipeWire (session manager, policy)"
-,pipewire-pulse,"Совместимость с PulseAudio - все старые приложения (например, Firefox) работают без изменений"
-,pulsemixer,"TUI-микшер для PulseAudio/PipeWire - регулировка громкости на лету, mute/unmute каналов"
-,python,"Интерпретатор Python - основа для многих утилит (pywal, tgpt, скриптов, neovim-плагинов)"
-,python-pywal,"Генерирует цветовые схемы из обоев и применяет их в терминале, vim, waybar, rofi и др."
-,qrencode,"Создаёт QR-коды из текста/URL - удобно для передачи ссылок между устройствами"
-,qutebrowser,"Браузер на QtWebEngine с vim-управлением, блокировкой трекеров и скриптами на Python"
-,rofi,"Замена dmenu - запуск приложений, переключение окон, управление сессией (wayland-friendly)"
-,rofi-emoji,"Модуль для rofi: поиск и вставка эмодзи (Ctrl+Alt+E и т.п. - часто используется в qutebrowser/neovim)"
-,rsync,"Инструмент для быстрой, надёжной синхронизации файлов (локально и по сети, с resume и дельта-кодированием)"
-,slurp,"TUI-селектор области экрана в Wayland - используется с grim, wf-recorder, waylock для выделения"
-,tailscale,"Zero-config VPN - безопасное подключение к домашней/рабочей сети из любой точки мира"
-,telegram-desktop,"Официальный Telegram-клиент с поддержкой Wayland, TUI-альтернатива - tg (но без медиа)"
-,tesseract,"OCR-движок: распознавание текста на изображениях и PDF (часто с zathura/tesseract-data)"
-,tesseract-data-eng,"Языковые данные Tesseract для английского языка"
-,tesseract-data-rus,"Языковые данные Tesseract для русского языка"
-,tgpt,"Консольный клиент для LLM (через API: GPT, Claude, Ollama) - быстрые запросы без веб-интерфейса"
-,translate-shell,"Переводчик в терминале (Google, DeepL, LibreTranslate) - интеграция в rofi/neovim/скрипты"
-,ttf-firacode-nerd,"Моноширинный шрифт Fira Code с ligatures + Nerd Fonts-глифами (для powerline, иконок в rofi/waybar)"
-,ttf-jetbrains-mono-nerd,"JetBrains Mono - шрифт от JetBrains с лигатурами и Nerd glyphs - отличная читаемость кода"
-,waybar,"Панель задач для Wayland - лёгкая, настраиваемая через CSS и JSON, с модулями (MPRIS, battery, network)"
-,waylock,"Блокировщик экрана для Wayland - простой, быстрый, с поддержкой PAM (часто вызывается из hypridle)"
-,wf-recorder,"Запись экрана в Wayland - захватывает область (через slurp) или весь экран в .mp4/WebM"
-,wl-clipboard,"Реализация xclip/xsel для Wayland: wl-copy / wl-paste - обмен буфером обмена в терминале"
-,yazi,"Современный TUI-файловый менеджер на Rust - быстрый, с предпросмотром, vim-биндингами"
-,zathura,"Минималистичный PDF/DJVU/PS-ридер с vim-управлением и поддержкой аннотаций"
-,zathura-djvu,"Поддержка формата DjVu в zathura (сканированные книги, техническая документация)"
-,zathura-pdf-mupdf,"PDF-бэкенд для zathura на основе MuPDF - быстрая отрисовка, поддержка аннотаций и форм"
-,zathura-ps,"Поддержка PostScript в zathura - для legacy-документов и печати"
-A,ttf-noto-emoji-monochrome,"Монохромные (чёрно-белые) Noto Emoji - лучше смотрятся в терминале и TUI (меньше визуального шума)"
+,bat
+,bat-extras
+,bluetui
+,bluez
+,brightnessctl
+,chafa
+,cmatrix
+,curl
+,ffmpeg
+,fish
+,foot
+,freerdp2
+,fzf
+,gnupg
+,grep
+,htop
+,hypridle
+,hyprland
+,hyprpaper
+,hyprshot
+,imagemagick
+,less
+,libnotify
+,mako
+,man-db
+,mpv
+,mpv-mpris
+,neovim
+,networkmanager
+,noto-fonts-emoji
+,nsxiv
+,openssh
+,pipewire
+,pipewire-alsa
+,pipewire-audio
+,pipewire-pulse
+,pulsemixer
+,python
+,python-pywal
+,qrencode
+,rofi
+,rofi-emoji
+,rsync
+,tailscale
+,telegram-desktop
+,tesseract
+,tesseract-data-eng
+,tesseract-data-rus
+,translate-shell
+,ttf-firacode-nerd
+,ttf-jetbrains-mono-nerd
+,waybar
+,waylock
+,wf-recorder
+,wl-clipboard
+,zathura
+,zathura-djvu
+,zathura-pdf-mupdf
+,zathura-ps
+A,ttf-noto-emoji-monochrome
+A,google-chrome-stable
