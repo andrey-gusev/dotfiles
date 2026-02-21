@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# Отключаем глоббинг (чтобы звездочки в путях не ломали скрипт)
+set -f
+
+file="$1"
+width="$2"
+height="$3"
+
+# Путь к кэшу
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/lf"
+mkdir -p "$CACHE_DIR"
+
+draw() {
+    chafa -s "${width}x${height}" --format sixel --animate off --polite on "$1"
+}
+
+# Генерация ID кэша (как в твоем старом конфиге)
+id=$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$file")" | sha256sum | cut -d' ' -f1)
+CACHE="$CACHE_DIR/thumb.$id"
+
+case "$(file --dereference --brief --mime-type -- "$file")" in
+    image/svg+xml)
+        [ ! -f "$CACHE.png" ] && rsvg-convert "$file" -o "$CACHE.png"
+        draw "$CACHE.png" ;;
+    
+    image/x-xcf)
+        [ ! -f "$CACHE.jpg" ] && magick "$file[0]" "$CACHE.jpg"
+        draw "$CACHE.jpg" ;;
+
+    image/gif)
+        draw "$file" ;;
+
+    image/vnd.djvu | image/x-djvu)
+        id=$(stat --printf '%i%s%Y' -- "$(readlink -f "$file")" | sha256sum | awk '{print $1}')
+        CACHE="$CACHE_DIR/thumb.$id.tiff"
+        [ ! -f "$CACHE" ] && ddjvu -format=tiff -page=1 -quality=40 -scale=100 "$file" "$CACHE"
+        draw "$CACHE"
+        ;;
+
+    image/*)
+        draw "$file" ;;
+
+    video/*)
+        [ ! -f "$CACHE.jpg" ] && ffmpegthumbnailer -i "$file" -o "$CACHE.jpg" -s 0
+        draw "$CACHE.jpg" ;;
+
+    */pdf)
+        [ ! -f "$CACHE.jpg" ] && pdftoppm -jpeg -jpegopt quality=10 -f 1 -singlefile "$file" "$CACHE"
+        draw "$CACHE.jpg" ;;
+
+    */epub+zip|*/mobi*)
+        [ ! -f "$CACHE.jpg" ] && gnome-epub-thumbnailer "$file" "$CACHE.jpg"
+        draw "$CACHE.jpg" ;;
+
+	text/troff) man ./ "$1" | col -b ;;
+
+    audio/* | application/octet-stream)
+        # Пробуем достать обложку, если нет - показываем mediainfo
+        if ffmpeg -i "$file" -an -vframes 1 "$CACHE.jpg" -y >/dev/null 2>&1; then
+            draw "$CACHE.jpg"
+        else
+            mediainfo "$file"
+        fi ;;
+
+    text/html) lynx -width="$width" -display_charset=utf-8 -dump "$file" ;;
+    
+    text/* | */xml | application/json)
+        bat -p --theme ansi --color=always "$file" 2>/dev/null || cat "$file" ;;
+
+    application/*zip|application/x-tar|application/x-7z-compressed|application/x-rar)
+        atool --list -- "$file" 2>/dev/null || 7z l "$file" ;;
+
+    application/pgp-encrypted) gpg -d -- "$1" ;;
+esac

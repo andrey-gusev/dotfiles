@@ -42,7 +42,7 @@
         "tooltip": false
     },
     "custom/clock": {
-        "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %B %H:%M'",
+        "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
         "interval": 60,
     },
     "cpu": {

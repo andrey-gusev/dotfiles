@@ -1,7 +1,7 @@
 @import url("../../.cache/wal/colors-waybar.css");
 
 * {
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "FiraCode Nerd Font", "Noto Color Emoji";
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
