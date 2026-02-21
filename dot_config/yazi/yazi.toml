@@ -1,4 +1,0 @@
-[mgr]
-sort_by = "mtime"
-linemode = "size"
-ratio = [2, 3, 3]
