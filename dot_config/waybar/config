@@ -12,10 +12,11 @@
     ],
     "modules-center": ["custom/clock"],
     "modules-right": [
+        "custom/recorder",
         "custom/wttr",
         "hyprland/language",
         "pulseaudio",
-        //"disk",
+        "disk",
         "cpu",
         "memory", 
         "upower", 
