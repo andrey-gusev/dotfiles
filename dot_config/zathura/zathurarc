@@ -1,9 +1,10 @@
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 set guioptions ""
-set recolor true
-map j feedkeys "<C-Down>"
-map k feedkeys "<C-Up>"
+set recolor false
+set selection-clipboard false
+map j smooth-down
+map k smooth-up
 map b toggle_statusbar
 map u scroll half-up
 map d scroll half-down
