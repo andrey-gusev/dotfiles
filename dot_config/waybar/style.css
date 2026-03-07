@@ -1,7 +1,7 @@
 @import url("../../.cache/wal/colors-waybar.css");
 
 * {
-    font-family: "FiraCode Nerd Font", "Noto Color Emoji";
+    font-family: "JetBrainsMono Nerd Font", "Noto Color Emoji";
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
@@ -12,7 +12,9 @@
 
 #cpu,
 #custom-clock,
+#clock,
 #custom-wttr,
+#custom-playerctl,
 #disk,
 #language,
 #memory,
@@ -41,31 +43,17 @@ window#waybar {
 
 #cpu { color: @color4; }
 #custom-clock { color: @color10; }
+#clock { color: @color7; }
 #custom-wttr { color: @color12; }
+#custom-playerctl { color: @color14; }
 #disk { color: @color11; }
 #language { color: @color3; }
 #memory { color: @color5; }
-#network { color: @color7; }
+#network { color: @color10; }
 #pulseaudio { color: @color2; }
 #tray { color: @color13; }
 #upower { color: @color6; }
 #window { color: @color9; }
-
-
-#cpu:hover,
-#custom-cava:hover,
-#custom-clock:hover,
-#custom-playerctl:hover,
-#custom-wttr:hover,
-#disk:hover,
-#language:hover,
-#memory:hover,
-#network:hover,
-#pulseaudio:hover,
-#tray:hover,
-#upower:hover {
-    background: #333333;
-}
 
 #workspaces button {
     color: @color7;
@@ -86,7 +74,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background: @color2;
+    background: @color1;
     color: @background;
     border-color: @color2;
 }
