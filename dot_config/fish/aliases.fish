@@ -1,6 +1,6 @@
 # abbr -a --position anywhere -- --help '--help | bat -plhelp'
 # abbr -a --position anywhere -- -h '-h | bat -plhelp'
-abbr cat "bat"
+# abbr cat "bat"
 abbr ca "chezmoi apply" 
 abbr cdc "cd ~/.local/share/chezmoi/"
 abbr cf "chezmoi edit ~/.config/"
@@ -18,7 +18,7 @@ abbr gd "git diff"
 abbr gp "git push"
 abbr gr "git remote set-url origin git@github.com:andrey-gusev/"
 abbr gs "git status"
-abbr man "batman"
+alias man "batman"
 abbr p "sudo pacman"
 abbr sc "chezmoi edit ~/.local/bin/"
 abbr sdn "shutdown now"
