@@ -79,7 +79,7 @@
     },
     "network": {
         "interval": 2,
-        "format-wifi": "{essid}({signalStrength}%) IP:{ipaddr}",
+        "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
         "format-ethernet": "IP:{ipaddr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "DIS",
