@@ -72,4 +72,6 @@ case "$(file --dereference --brief --mime-type -- "$file")" in
         atool --list -- "$file" 2>/dev/null || 7z l "$file" ;;
 
     application/pgp-encrypted) gpg -d -- "$1" ;;
+    *)
+        mediainfo $file ;;
 esac
