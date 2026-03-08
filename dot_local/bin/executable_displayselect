@@ -1,0 +1,75 @@
+#!/bin/sh
+
+get_best_hz() {
+    local monitor=$1
+    hz=$(hyprctl monitors all -j | jq -r '.[] | select(.name=="'"$monitor"'") | .availableModes[]' | grep '1920x1080' | cut -d "@" -f 2 | sort -nr | tr -d "Hz" | head -n 1)
+    echo $hz
+}
+
+onescreen() {
+    local target=$1
+    local hz=$(get_best_hz "$target")
+    hyprctl keyword monitor "$target,1920x1080@$hz,auto,1"
+    for m in $screens; do
+        [ "$m" != "$target" ] && hyprctl keyword monitor "$m,disable"
+    done
+}
+
+twoscreen() {
+    mirror=$(printf "no\nyes" | rofi -dmenu -p "Mirror displays?")
+    if [ "$mirror" = "yes" ]; then
+        external=$(echo "$screens" | rofi -dmenu -p "Optimize for (Main):")
+        internal=$(echo "$screens" | grep -v "$external")
+
+        hz_e=$(get_best_hz "$external")
+        hz_i=$(get_best_hz "$internal")
+
+        hyprctl keyword monitor "$external,1920x1080@$hz_e,auto,1"
+        hyprctl keyword monitor "$internal,1920x1080@$hz_i,auto,1,mirror,$external"
+
+    else
+        primary=$(echo "$screens" | rofi -dmenu -p "Выберите основной монитор:")
+        [ -z "$primary" ] && exit
+        secondary=$(echo "$screens" | grep -v "^$primary$")
+        direction=$(printf "left\nright" | rofi -dmenu -p "Где находится второй монитор ($secondary)?")
+        [ -z "$direction" ] && exit
+
+        hz_p=$(get_best_hz "$primary")
+        hz_s=$(get_best_hz "$secondary")
+
+        if [ "$direction" = "left" ]; then
+            hyprctl keyword monitor "$secondary,1920x1080@$hz_s,0x0,1"
+            hyprctl keyword monitor "$primary,1920x1080@$hz_p,auto,1"
+        else
+            hyprctl keyword monitor "$primary,1920x1080@$hz_p,0x0,1"
+            hyprctl keyword monitor "$secondary,1920x1080@$hz_s,auto,1"
+        fi
+    fi 
+}
+
+morescreen() {
+    primary=$(echo "$screens" | rofi -dmenu -p "Основной монитор:")
+    [ -z "$primary" ] && exit
+    
+    # Просто включаем все в ряд с их лучшими частотами для 1080p
+    hyprctl keyword monitor "$primary,1920x1080@$(get_best_hz "$primary"),0x0,1"
+    
+    for m in $(echo "$screens" | grep -v "^$primary$"); do
+        hyprctl keyword monitor "$m,1920x1080@$(get_best_hz "$m"),auto,1"
+    done
+}
+
+screens=$(hyprctl monitors all -j | jq -r '.[].name')
+screen_count=$(echo "$screens" | wc -l)
+
+chosen=$(printf "%s\nmulti-monitor" "$screens" | rofi -dmenu -p "Выберите способ отображения")
+
+case "$chosen" in
+    "") exit ;;
+    "multi-monitor") 
+        if [ "$screen_count" -eq 2 ]; then twoscreen; else morescreen; fi 
+        ;;
+    *) 
+        onescreen "$chosen" 
+        ;;
+esac
