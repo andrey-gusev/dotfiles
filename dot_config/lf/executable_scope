@@ -73,3 +73,5 @@ case "$(file --dereference --brief --mime-type -- "$file")" in
     *)
         mediainfo $file ;;
 esac
+
+exit 1
