@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# Отключаем глоббинг (чтобы звездочки в путях не ломали скрипт)
 set -f
 
 file="$1"
@@ -15,7 +14,6 @@ draw() {
     chafa -s "${width}x${height}" --format sixel --animate off --polite on "$1"
 }
 
-# Генерация ID кэша (как в твоем старом конфиге)
 id=$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$file")" | sha256sum | cut -d' ' -f1)
 CACHE="$CACHE_DIR/thumb.$id"
 
