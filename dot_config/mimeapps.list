@@ -18,6 +18,7 @@ text/xml=nvim.desktop
 text/markdown=nvim.desktop
 text/javascript=nvim.desktop
 text/x-python=nvim.desktop
+text/md=nvim.desktop
 application/json=nvim.desktop
 application/x-yaml=nvim.desktop
 
