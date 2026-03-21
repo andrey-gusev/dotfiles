@@ -2,4 +2,4 @@
 
 USERNAME="$1"
 
-xfreerdp /u:"$1" /v:$(tailscale ip -4 windows) /gfx-h264 /dynamic-resolution /clipboard /sound
+xfreerdp3 /u:"$1" /v:$(tailscale ip -4 windows) +dynamic-resolution +clipboard +sound
