@@ -10,13 +10,13 @@ record() {
     # Записываем PID сразу при запуске
     wf-recorder -a -f "$SAVE_DIR/$(date +%Y-%m-%d-%H-%M-%S).mp4" & 
     echo $! > "$PID_FILE"
-    notify-send "Запись началась"
+    notify-send "📹 Запись экрана" "Запись экрана началась"
 }
 
 end() {
     if [[ -f "$PID_FILE" ]]; then
         kill -15 "$(cat "$PID_FILE")" && rm "$PID_FILE"
-        notify-send "Запись сохранена" "$SAVE_DIR"
+        notify-send "📹 Запись экрана" "Запись экрана завершилась\nВидео сохранено в $SAVE_DIR"
     fi
 }
 
