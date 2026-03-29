@@ -3,7 +3,7 @@
 set -euo pipefail
 
 CSV_FILE="$HOME/.local/share/chezmoi/programs.csv"
-SHELL="/usr/bin/fish"
+SHELL="/usr/bin/zsh"
 
 csvfilecheck() {
     if [[ ! -f "$CSV_FILE" ]]; then
@@ -72,7 +72,7 @@ change_shell() {
     [[ "$current" == "$SHELL" ]] && return
 
     if command -v chsh >/dev/null 2>&1; then
-        echo "🔄 Изменение shell на fish..."
+        echo "🔄 Изменение shell"
         chsh -s "$SHELL" || \
             echo "⚠ Не удалось изменить shell"
     fi

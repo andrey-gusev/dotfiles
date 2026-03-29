@@ -1,15 +1,14 @@
 ,bat
-,cliphist
 ,bat-extras
 ,bluetui
 ,bluez
 ,brightnessctl
 ,btop
 ,chafa
+,cliphist
 ,cmatrix
 ,curl
 ,ffmpeg
-,fish
 ,foot
 ,freerdp
 ,fzf
@@ -58,6 +57,10 @@
 ,zathura-djvu
 ,zathura-pdf-mupdf
 ,zathura-ps
+,zsh
+,zsh-autosuggestions
+,zsh-completions
+,zsh-syntax-highlighting
 A,librewolf-bin
 A,librewolf-extension-duckduckgo-privacy-essentials
 A,librewolf-extension-istilldontcareaboutcookies-bin

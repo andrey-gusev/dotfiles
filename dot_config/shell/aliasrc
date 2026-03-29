@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# sudo not required for some system commands
+for command in mount umount pacman updatedb su shutdown poweroff reboot ; do
+	alias $command="sudo $command"
+done; unset command
+
+se() {
+	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.local/bin/$choice" ] && nvim "$HOME/.local/bin/$choice"
+	}
+
+alias \
+    ca="chezmoi apply" \
+    cdc="cd ~/.local/share/chezmoi/" \
+    cf="chezmoi edit ~/.config/" \
+    cff="chezmoi edit ~/.config/fish/" \
+    cfh="chezmoi edit ~/.config/hypr/hyprland.conf" \
+    cft="chezmoi edit ~/.config/foot/foot.ini" \
+    cfv="chezmoi edit ~/.config/nvim/init.vim" \
+    cfw="chezmoi edit ~/.config/waybar/config" \
+    cfws="chezmoi edit ~/.config/waybar/style.css" \
+    sc="chezmoi edit ~/.local/bin/" \
+	g="git" \
+    ga="git add" \
+    gc="git commit -m" \
+    gd="git diff" \
+    gp="git push" \
+    gr="git remote set-url origin git@github.com:andrey-gusev/" \
+    gs="git status" \
+    man="batman" \
+	ka="killall" \
+    sys="sudo systemctl" \
+    t="sudo tailscale" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="shutdown -h now" \
+	e='nvim' \
+	v='nvim' \
+	p="pacman" \
+    y="yay" \
+	z="zathura" \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	rsync="rsync -vrPlu" \
+	mkd="mkdir -pv" \
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ytt="yt --skip-download --write-thumbnail" \
+	ffmpeg="ffmpeg -hide_banner" \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"

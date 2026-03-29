@@ -1,0 +1,70 @@
+autoload -U colors && colors # загружает цвета
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b " # настройка вида приглашения в терминал
+setopt autocd # перемещение в дироекторию без использования cd
+stty stop undef # выключает заморозку терминала Ctrl+S
+setopt interactive_comments # включает комментарии в терминале (#)
+
+HISTSIZE=10000000 # устанавливает максимальное количество команд, которые Zsh держит в оперативной памяти текущей сессии
+SAVEHIST=10000000 # устанавливает количество команд, которые будут физически сохранены в файле истории на диске при закрытии терминала
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history" # указывает путь к файлу, где лежит твоя история
+setopt inc_append_history # записывает команды в кэш сразу после выполнения
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" # подключает алиасы
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+
+zstyle ':completion:*' menu select # включает возможность по второму табу интерактивно выбирать из списка
+zmodload zsh/complist # выбор подсказок с помощью vim-клавиш
+autoload -U compinit # включает автодополнение команд, названий файлов/директорий и даже команд с флагами!
+compinit
+_comp_options+=(globdots) # поддержка скрытых файлов
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp -uq)"
+    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' '^ulfcd\n' # запуск функции lfcd (для открытия файлового менеджера lf)
+bindkey -s '^a' '^ubc -lq\n' # запуск калькулятор bc
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n' # поиск всех файлов на компьютере, а затем cd в эту директорию
+bindkey '^[[P' delete-char # для нормальной работы клавиши delete
+
+autoload edit-command-line; zle -N edit-command-line # редактирование команды в vim
+bindkey '^e' edit-command-line
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M visual '^[[P' vi-delete
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
