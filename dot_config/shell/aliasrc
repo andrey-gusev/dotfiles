@@ -14,7 +14,8 @@ alias \
     ca="chezmoi apply" \
     cdc="cd ~/.local/share/chezmoi/" \
     cf="chezmoi edit ~/.config/" \
-    cff="chezmoi edit ~/.config/fish/" \
+    cfz="chezmoi edit ~/.config/zsh/" \
+    cfs="chezmoi edit ~/.config/shell/" \
     cfh="chezmoi edit ~/.config/hypr/hyprland.conf" \
     cft="chezmoi edit ~/.config/foot/foot.ini" \
     cfv="chezmoi edit ~/.config/nvim/init.vim" \

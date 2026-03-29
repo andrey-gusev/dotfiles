@@ -17,6 +17,10 @@ zmodload zsh/complist # выбор подсказок с помощью vim-кл
 autoload -U compinit # включает автодополнение команд, названий файлов/директорий и даже команд с флагами!
 compinit
 _comp_options+=(globdots) # поддержка скрытых файлов
+eval "$(dircolors -b)"
+zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:descriptions' format '[%d]' # Группировка подсказок по категориям (команды, файлы и т.д.)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Цветное меню выбора (использует цвета из твоего LS_COLORS)
 
 # vi mode
 bindkey -v
