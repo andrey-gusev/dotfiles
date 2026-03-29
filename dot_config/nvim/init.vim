@@ -11,3 +11,6 @@ set smartindent
 set showmatch
 set backspace=indent,eol,start
 colorscheme vim
+nnoremap d "_d
+vnoremap d "_d
+nnoremap dd "_dd
