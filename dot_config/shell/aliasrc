@@ -12,6 +12,7 @@ se() {
 
 alias \
     ca="chezmoi apply" \
+    cu="chezmoi update" \
     cdc="cd ~/.local/share/chezmoi/" \
     cf="chezmoi edit ~/.config/" \
     cfz="chezmoi edit ~/.config/zsh/" \
