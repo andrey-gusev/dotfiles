@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
+export PATH="$PATH:$HOME/.config/emacs/bin"
 export EDITOR="nvim"
 export TERMINAL="foot"
 export TERMINAL_PROG="foot"
