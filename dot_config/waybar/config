@@ -1,8 +1,8 @@
 {
-    "position": "bottom",
+    "position": "top",
     "height": 20,
     "margin": 0,
-    "no-center": true,
+    "no-center": false,
     "expand-left": true,
     "reload_style_on_change": true,
     "spacing": 0,
@@ -10,7 +10,7 @@
         "hyprland/workspaces", 
         "hyprland/window"
     ],
-    "modules-center": [],
+    "modules-center": ["custom/clock"],
     "modules-right": [
         //"custom/playerctl",
         //"custom/wttr",
@@ -21,8 +21,8 @@
         "memory", 
         "upower", 
         "network", 
-        "clock"
-        //"tray"
+        //"clock",
+        "tray"
     ],
 
     "tray": {
@@ -32,6 +32,7 @@
     "hyprland/window": {
         "icon": true,
         "icon-size": 14,
+        "max-length": 80,
     },
     "hyprland/language": {
         "format-en": "US",
@@ -79,8 +80,8 @@
     },
     "network": {
         "interval": 2,
-        "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
-        "format-ethernet": "IP:{ipaddr}",
+        "format-wifi": "{essid}:{signalStrength}% {ipaddr}",
+        "format-ethernet": "{ipaddr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "DIS",
         "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
