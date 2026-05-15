@@ -1,14 +1,43 @@
 #!/usr/bin/env bash
 
-if [ -n "$1" ] && [ -f "$1" ]; then
-    wall="$1"
-elif [ -d "$HOME/pix" ]; then
-    wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.png" \) | shuf -n 1)
-else
+wall=""
+force_default=false
+
+# Парсинг флагов и аргументов
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -d|--default)
+            force_default=true
+            shift
+            ;;
+        -h|--help)
+            echo "Использование: $0 [ОПЦИИ] [ПУТЬ_К_ОБОЯМ]"
+            echo "  -d, --default    Применить тему по умолчанию (без обоев)"
+            echo "  -h, --help       Показать это сообщение"
+            exit 0
+            ;;
+        *)
+            # Позиционный аргумент (путь к файлу)
+            if [[ -f "$1" ]]; then
+                wall="$1"
+            else
+                echo "Ошибка: Файл '$1' не найден." >&2
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
+
+# Если указан флаг -d, игнорируем переданный файл (если он был)
+if $force_default; then
     wall=""
+elif [[ -z "$wall" && -d "$HOME/pix" ]]; then
+    wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.png" \) | shuf -n 1)
 fi
 
-if [ -z "$wall" ]; then
+# Применение темы или обоев
+if [[ -z "$wall" ]]; then
     wal --theme gruvbox
 else
     wal -c
