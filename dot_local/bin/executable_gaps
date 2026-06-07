@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+step_in=15
+step_out=20
+gaps_in=$(hyprctl -j getoption general:gaps_in | jq '.custom' | awk '{print $1}' | cut -c 2-)
+gaps_out=$(hyprctl -j getoption general:gaps_out | jq '.custom' | awk '{print $1}' | cut -c 2-)
+
+function check_gaps () {
+    if (( gaps_in - step_in < 0 || gaps_out - step_out < 0 )); then
+        return 1
+    else
+        return 0
+    fi
+}
+
+function inc_gaps_in () {
+  hyprctl keyword general:gaps_in $((gaps_in + step_in))
+}
+
+function dec_gaps_in () {
+  hyprctl keyword general:gaps_in $((gaps_in - step_in))
+}
+
+function inc_gaps_out () {
+  hyprctl keyword general:gaps_out $((gaps_out + step_out))
+}
+
+function dec_gaps_out () {
+  hyprctl keyword general:gaps_out $((gaps_out - step_out))
+}
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --inc_gaps_in)   inc_gaps_in;   shift ;;
+    --dec_gaps_in)   check_gaps && dec_gaps_in;   shift ;;
+    --inc_gaps_out)  inc_gaps_out;  shift ;;
+    --dec_gaps_out)  check_gaps && dec_gaps_out;  shift ;;
+    *)               printf "Error: Unknown option %s\n" "$1"; exit 1 ;;
+  esac
+done
