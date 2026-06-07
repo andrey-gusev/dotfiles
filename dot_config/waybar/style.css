@@ -1,7 +1,7 @@
 @import url("../../.cache/wal/colors-waybar.css");
 
 * {
-    font-family: "NotoSans Mono", "Noto Color Emoji";
+    font-family: "JetBrainsMono Nerd Font", "Noto Color Emoji";
     font-weight: bold;
     font-size: 12px;
     min-height: 0;
@@ -21,12 +21,12 @@
 #network,
 #pulseaudio,
 #upower,
+#battery,
 #window {
     background: transparent;
     padding: 0 10px;
     margin: 0;
     border-radius: 0px;
-    transition: background 0.2s ease;
 }
 
 #tray {
@@ -41,19 +41,34 @@ window#waybar {
     margin: 0;
 }
 
-#cpu { color: @color4; }
-#custom-clock { color: @color10; }
-#clock { color: @color7; }
-#custom-wttr { color: @color12; }
-#custom-playerctl { color: @color14; }
-#disk { color: @color11; }
-#language { color: @color3; }
-#memory { color: @color5; }
-#network { color: @color10; }
-#pulseaudio { color: @color2; }
-#tray { color: @color13; }
-#upower { color: @color6; }
-#window { color: @color9; }
+#cpu,
+#custom-clock,
+#clock,
+#custom-wttr,
+#custom-playerctl,
+#disk,
+#language,
+#memory,
+#network,
+#pulseaudio,
+#tray,
+#upower,
+#battery,
+#window { color: @color2; }
+
+/* #cpu { color: @color4; } */
+/* #custom-clock { color: @color10; } */
+/* #clock { color: @color7; } */
+/* #custom-wttr { color: @color12; } */
+/* #custom-playerctl { color: @color14; } */
+/* #disk { color: @color11; } */
+/* #language { color: @color3; } */
+/* #memory { color: @color5; } */
+/* #network { color: @color10; } */
+/* #pulseaudio { color: @color2; } */
+/* #tray { color: @color13; } */
+/* #upower { color: @color6; } */
+/* #window { color: @color9; } */
 
 #workspaces button {
     color: gray;
@@ -61,7 +76,6 @@ window#waybar {
     border-radius: 0px;
     padding: 0;
     margin: 0;
-    transition: all 0.2s ease; 
     min-width: 20px;
     min-height: 20px;
 }
@@ -85,7 +99,6 @@ window#waybar {
 #workspaces button.urgent {
     background: @color3;
     color: @foreground;
-    animation: urgent-pulse 1.5s infinite;
 }
 
 #tray > .passive {

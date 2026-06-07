@@ -48,6 +48,7 @@
 ,tesseract-data-eng
 ,tesseract-data-rus
 ,translate-shell
+,ttf-firacode-nerd
 ,ttf-jetbrains-mono-nerd
 ,waybar
 ,waylock
@@ -62,9 +63,3 @@
 ,zsh-completions
 ,zsh-syntax-highlighting
 A,librewolf-bin
-A,librewolf-extension-duckduckgo-privacy-essentials
-A,librewolf-extension-istilldontcareaboutcookies-bin
-A,librewolf-extension-localcdn-bin
-A,librewolf-extension-sponsorblock
-A,librewolf-extension-tridactyl-bin
-A,librewolf-extension-ublock-origin-bin

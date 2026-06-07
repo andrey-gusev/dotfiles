@@ -19,7 +19,8 @@
         "disk",
         "cpu",
         "memory", 
-        "upower", 
+        //"upower", 
+        "battery", 
         "network", 
         //"clock",
         "tray"
