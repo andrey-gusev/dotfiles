@@ -46,7 +46,9 @@
         "tooltip": false
     },
     "custom/clock": {
-        "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
+        // "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
+        // "exec": "date '+%a, %d %b %H:%M'",
+        "exec": "date '+%Y-%m-%d %H:%M'",
         "interval": 60
     },
     "custom/vpn": {
@@ -88,7 +90,7 @@
         "interval": 2,
         "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
         "format-ethernet": "IP:{ipaddr}",
-        "format-linked": "{ifname} (No IP)",
+        "format-linked": "{ifname} (LINK)",
         "format-disconnected": "DIS",
         "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
         "tooltip-format": "{ifname}"
@@ -104,10 +106,12 @@
         "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' 2>/dev/null | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
         "interval": 5,
         "return-type": "text",
-        "on-click": "playerctl play-pause"
+        "on-click": "playerctl previous",
+        "on-click-middle": "playerctl play-pause",
+        "on-click-right": "playerctl next"
     },
     "custom/wttr": {
         "exec": "wttr",
-        "interval": 600,
-    },
+        "interval": 600
+    }
 }

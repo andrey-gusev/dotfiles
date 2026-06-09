@@ -38,7 +38,7 @@ fi
 
 # Применение темы или обоев
 if [[ -z "$wall" ]]; then
-    wal --theme gruvbox
+    wal --theme base16-gruvbox-hard
 else
     wal -c
     wal -i "$wall"

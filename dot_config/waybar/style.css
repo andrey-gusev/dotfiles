@@ -28,7 +28,7 @@
     padding: 0 10px;
     margin: 0;
     border-radius: 0px;
-    color: @color2;
+    color: @color11;
 }
 
 #tray {
@@ -37,24 +37,29 @@
 }
 
 window#waybar {
-    background: black;
+    /* background: black; */
+    background: @background;
     color: white;
     padding: 0;
     margin: 0;
 }
 
-/* #cpu { color: @color4; } */
+/* #cpu { color: @color9; } */
+/* #disk { color: @color9; } */
+/* #memory { color: @color9; } */
+/* #pulseaudio { color: @color9; } */
+/* #upower { color: @color9; } */
+/* #battery { color: @color9; } */
+
 /* #custom-clock { color: @color10; } */
 /* #clock { color: @color7; } */
 /* #custom-wttr { color: @color12; } */
 /* #custom-playerctl { color: @color14; } */
-/* #disk { color: @color11; } */
+/* #custom-vpn { color: @color14; } */
 /* #language { color: @color3; } */
-/* #memory { color: @color5; } */
 /* #network { color: @color10; } */
-/* #pulseaudio { color: @color2; } */
+
 /* #tray { color: @color13; } */
-/* #upower { color: @color6; } */
 /* #window { color: @color9; } */
 
 #workspaces button {
