@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-curl -s 'wttr.in/Yekaterinburg?M&lang=ru&format=%c%t+(%f)' | sed 's/  //g'
+
+set -o pipefail
+
+curl -fsS --max-time 3 \
+  'wttr.in/Yekaterinburg?M&lang=ru&format=%c%t+(%f)' \
+  | tr -s ' ' \
+  2>/dev/null
