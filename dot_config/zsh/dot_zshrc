@@ -1,26 +1,35 @@
-autoload -U colors && colors # загружает цвета
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b " # настройка вида приглашения в терминал
+autoload -U colors && colors
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 setopt autocd # перемещение в дироекторию без использования cd
 stty stop undef # выключает заморозку терминала Ctrl+S
 setopt interactive_comments # включает комментарии в терминале (#)
 
-HISTSIZE=10000000 # устанавливает максимальное количество команд, которые Zsh держит в оперативной памяти текущей сессии
-SAVEHIST=10000000 # устанавливает количество команд, которые будут физически сохранены в файле истории на диске при закрытии терминала
+HISTSIZE=50000 # устанавливает максимальное количество команд, которые Zsh держит в оперативной памяти текущей сессии
+SAVEHIST=50000 # устанавливает количество команд, которые будут физически сохранены в файле истории на диске при закрытии терминала
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history" # указывает путь к файлу, где лежит твоя история
 setopt inc_append_history # записывает команды в кэш сразу после выполнения
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" # подключает алиасы
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 
-zstyle ':completion:*' menu select # включает возможность по второму табу интерактивно выбирать из списка
-zmodload zsh/complist # выбор подсказок с помощью vim-клавиш
-autoload -U compinit # включает автодополнение команд, названий файлов/директорий и даже команд с флагами!
-compinit
-_comp_options+=(globdots) # поддержка скрытых файлов
+# включает возможность по второму табу интерактивно выбирать из списка
+zstyle ':completion:*' menu select 
+
+# выбор подсказок с помощью vim-клавиш
+zmodload zsh/complist #
+
+# включает автодополнение команд, названий файлов/директорий и даже команд с флагами!
+autoload -U compinit && compinit  
+
+# поддержка скрытых файлов
+_comp_options+=(globdots) 
+
+# умный fuzzy-поиск (ищет совпадения, даже если ты пропустил папки)
+zstyle ':completion:*' completer _complete _match _approximate 
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 eval "$(dircolors -b)"
-zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:descriptions' format '[%d]' # Группировка подсказок по категориям (команды, файлы и т.д.)
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Цветное меню выбора (использует цвета из твоего LS_COLORS)
+zstyle ':completion:*:descriptions' format '%F{magenta}%B[%d]%b%f'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # vi mode
 bindkey -v
@@ -32,6 +41,33 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
+
+sudo-command-line() {
+    # Запоминаем, была ли строка изначально пустой
+    local was_empty=0
+    if [[ -z $BUFFER ]]; then
+        was_empty=1
+        BUFFER=$(fc -ln -1 | sed 's/^[[:space:]]*//')
+    fi
+
+    # Работаем с sudo
+    if [[ $BUFFER == sudo\ * ]]; then
+        BUFFER="${BUFFER#sudo }"
+        (( CURSOR -= 5 ))
+    else
+        BUFFER="sudo $BUFFER"
+        (( CURSOR += 5 ))
+    fi
+
+    # Если изначально строка была пустой, принудительно отправляем курсор в конец
+    if (( was_empty )); then
+        CURSOR=$#BUFFER
+    fi
+}
+
+zle -N sudo-command-line
+bindkey -M viins '^[s' sudo-command-line
+bindkey -M vicmd '^[s' sudo-command-line
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
@@ -70,5 +106,5 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

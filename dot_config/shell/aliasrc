@@ -12,6 +12,8 @@ se() {
 }
 
 alias \
+  ll="ls -l" \
+  la="ls -la" \
   ca="chezmoi apply" \
   cu="chezmoi update" \
   cdc="cd ~/.local/share/chezmoi/" \
