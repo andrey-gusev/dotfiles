@@ -2,7 +2,7 @@
     "position": "top",
     "height": 20,
     "margin": 0,
-    "no-center": false,
+    "no-center": true,
     "expand-left": true,
     "reload_style_on_change": true,
     "spacing": 0,
@@ -10,19 +10,19 @@
         "hyprland/workspaces", 
         "hyprland/window"
     ],
-    "modules-center": ["custom/clock"],
+    "modules-center": [],
     "modules-right": [
-        //"custom/playerctl",
-        //"custom/wttr",
+        "custom/playerctl",
+        "custom/wttr",
         "hyprland/language",
         "pulseaudio",
         "disk",
         "cpu",
         "memory", 
-        //"upower", 
         "battery", 
         "network", 
-        //"clock",
+        "custom/vpn",
+        "custom/clock",
         "tray"
     ],
 
@@ -33,7 +33,7 @@
     "hyprland/window": {
         "icon": true,
         "icon-size": 14,
-        "max-length": 80,
+        "max-length": 80
     },
     "hyprland/language": {
         "format-en": "US",
@@ -47,7 +47,12 @@
     },
     "custom/clock": {
         "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
-        "interval": 60,
+        "interval": 60
+    },
+    "custom/vpn": {
+        "format": "VPN:{}",
+        "exec": "ip -4 -o addr show tun0 2>/dev/null | awk '{print $4}' | cut -d/ -f1",
+        "interval": 3
     },
     "cpu": {
         "format": "C:{usage}%",
@@ -81,8 +86,8 @@
     },
     "network": {
         "interval": 2,
-        "format-wifi": "{essid}:{signalStrength}% {ipaddr}",
-        "format-ethernet": "{ipaddr}",
+        "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
+        "format-ethernet": "IP:{ipaddr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "DIS",
         "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
@@ -96,8 +101,8 @@
     },
     "custom/playerctl": {
         "format": "{}",
-        "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
-        "interval": 1,
+        "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' 2>/dev/null | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
+        "interval": 5,
         "return-type": "text",
         "on-click": "playerctl play-pause"
     },

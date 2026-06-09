@@ -10,23 +10,25 @@
     padding: 0;
 }
 
+#battery,
+#clock,
 #cpu,
 #custom-clock,
-#clock,
-#custom-wttr,
 #custom-playerctl,
+#custom-wttr,
+#custom-vpn,
 #disk,
 #language,
 #memory,
 #network,
 #pulseaudio,
 #upower,
-#battery,
 #window {
     background: transparent;
     padding: 0 10px;
     margin: 0;
     border-radius: 0px;
+    color: @color2;
 }
 
 #tray {
@@ -40,21 +42,6 @@ window#waybar {
     padding: 0;
     margin: 0;
 }
-
-#cpu,
-#custom-clock,
-#clock,
-#custom-wttr,
-#custom-playerctl,
-#disk,
-#language,
-#memory,
-#network,
-#pulseaudio,
-#tray,
-#upower,
-#battery,
-#window { color: @color2; }
 
 /* #cpu { color: @color4; } */
 /* #custom-clock { color: @color10; } */
