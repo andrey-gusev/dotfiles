@@ -6,7 +6,7 @@ gaps_in=$(hyprctl -j getoption general:gaps_in | jq '.custom' | awk '{print $1}'
 gaps_out=$(hyprctl -j getoption general:gaps_out | jq '.custom' | awk '{print $1}' | cut -c 2-)
 
 function check_gaps () {
-    if (( gaps_in - step_in < 0 || gaps_out - step_out < 0 )); then
+    if (( gaps_out - step_out < 0 )); then
         return 1
     else
         return 0
