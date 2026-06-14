@@ -5,6 +5,17 @@ set -euo pipefail
 CSV_FILE="$HOME/.local/share/chezmoi/programs.csv"
 SHELL="/usr/bin/zsh"
 
+# Переменная для хранения PID фонового процесса обновления sudo
+SUDO_PID=""
+
+# Функция для очистки фоновых процессов при выходе из скрипта
+cleanup() {
+    if [[ -n "$SUDO_PID" ]]; then
+        kill "$SUDO_PID" >/dev/null 2>&1 || true
+    fi
+}
+trap cleanup EXIT INT TERM
+
 csvfilecheck() {
     if [[ ! -f "$CSV_FILE" ]]; then
         echo "❌ Не найден файл с программами: $CSV_FILE"
@@ -54,15 +65,16 @@ installation_loop() {
 
         if [[ "$type" == "A" ]]; then
             echo "📦 Установка AUR пакета: $package"
-            yay -S --noconfirm --needed "$package" || \
+            # yay сам подхватит уже активный sudo-токен
+            yay -S --noconfirm --needed "$package" ||
                 echo "⚠ Ошибка установки AUR: $package"
         else
             echo "📦 Установка пакетa: $package"
-            sudo pacman -S --noconfirm --needed "$package" || \
+            sudo pacman -S --noconfirm --needed "$package" ||
                 echo "⚠ Ошибка установки: $package"
         fi
 
-    done < "$CSV_FILE"
+    done <"$CSV_FILE"
 }
 
 change_shell() {
@@ -73,7 +85,8 @@ change_shell() {
 
     if command -v chsh >/dev/null 2>&1; then
         echo "🔄 Изменение shell"
-        chsh -s "$SHELL" || \
+        # Передаем sudo, так как chsh часто требует пароль для не-интерактивной смены
+        sudo chsh -s "$SHELL" "$USER" ||
             echo "⚠ Не удалось изменить shell"
     fi
 }
@@ -85,6 +98,22 @@ main() {
     fi
 
     csvfilecheck
+
+    # --- МАГИЯ SUDO НАЧИНАЕТСЯ ТУТ ---
+    echo "🔐 Для установки программ необходимы права sudo."
+    # Запрашиваем пароль один раз. Если пароль неверный — скрипт упадет благодаря set -e
+    sudo -v
+
+    # Запускаем фоновый процесс, который каждые 60 секунд обновляет тайм-аут sudo,
+    # пока работает основной скрипт.
+    while true; do
+        sudo -n true
+        sleep 60
+        kill -0 "$$" || exit
+    done 2>/dev/null &
+    SUDO_PID=$!
+    # --- МАГИЯ SUDO ЗАКАНЧИВАЕТСЯ ТУТ ---
+
     check_yay
     installation_loop
     change_shell
