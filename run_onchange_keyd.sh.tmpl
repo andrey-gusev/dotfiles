@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# hash: {{ include "dot_config/keyd/default.conf" | sha256sum }}
+
+echo "Обновление конфигурации keyd..."
+
+# 1. Создаем директорию, если она вдруг отсутствует
+sudo mkdir -p /etc/keyd
+
+# 2. Копируем файл
+sudo cp {{ .chezmoi.sourceDir }}/dot_config/keyd/default.conf /etc/keyd/default.conf
+
+# 3. Перезапускаем сервис
+sudo systemctl restart keyd
