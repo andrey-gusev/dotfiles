@@ -2,48 +2,64 @@
 
 wall=""
 force_default=false
+random_default=false # Новый флаг
 
 # Парсинг флагов и аргументов
 while [[ $# -gt 0 ]]; do
-    case "$1" in
-        -d|--default)
-            force_default=true
-            shift
-            ;;
-        -h|--help)
-            echo "Использование: $0 [ОПЦИИ] [ПУТЬ_К_ОБОЯМ]"
-            echo "  -d, --default    Применить тему по умолчанию (без обоев)"
-            echo "  -h, --help       Показать это сообщение"
-            exit 0
-            ;;
-        *)
-            # Позиционный аргумент (путь к файлу)
-            if [[ -f "$1" ]]; then
-                wall="$1"
-            else
-                echo "Ошибка: Файл '$1' не найден." >&2
-                exit 1
-            fi
-            shift
-            ;;
-    esac
+  case "$1" in
+  -d | --default)
+    force_default=true
+    shift
+    ;;
+  -r | --random-default) # Логика нового флага
+    random_default=true
+    shift
+    ;;
+  -h | --help)
+    echo "Использование: $0 [ОПЦИИ] [ПУТЬ_К_ОБОЯМ]"
+    echo "  -d, --default         Применить тему по умолчанию (без обоев)"
+    echo "  -r, --random-default  Применить тему по умолчанию, но выбрать случайные обои"
+    echo "  -h, --help            Показать это сообщение"
+    exit 0
+    ;;
+  *)
+    # Позиционный аргумент (путь к файлу)
+    if [[ -f "$1" ]]; then
+      wall="$1"
+    else
+      echo "Ошибка: Файл '$1' не найден." >&2
+      exit 1
+    fi
+    shift
+    ;;
+  esac
 done
 
-# Если указан флаг -d, игнорируем переданный файл (если он был)
+# Логика выбора обоев
 if $force_default; then
-    wall=""
+  wall=""
 elif [[ -z "$wall" && -d "$HOME/pix" ]]; then
-    wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.png" \) | shuf -n 1)
+  # Выбираем случайные обои, если не задан конкретный файл
+  # Это сработает и в автоматическом режиме, и при флаге -r
+  wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.png" \) | shuf -n 1)
 fi
 
-# Применение темы или обоев
-if [[ -z "$wall" ]]; then
-    wal --theme base16-gruvbox-hard
+# Применение темы и обоев
+if $random_default; then
+  # Новый режим: тема по умолчанию + случайные обои
+  wal --theme base16-gruvbox-hard
+  if [[ -n "$wall" ]]; then
+    hyprctl hyprpaper wallpaper ",$wall,contain"
+  fi
+elif [[ -z "$wall" ]]; then
+  # Старый режим -d (или если обои вообще не нашлись)
+  wal --theme base16-gruvbox-hard
 else
-    wal -c
-    wal -i "$wall"
-    hyprctl hyprpaper preload "$wall"
-    hyprctl hyprpaper wallpaper ",$wall"
+  # Стандартный режим с генерацией цветов из обоев
+  wal -c
+  wal -i "$wall"
+  # hyprctl hyprpaper wallpaper ",$wall,contain"
+  hyprctl hyprpaper wallpaper ",$wall"
 fi
 
 makoctl reload
