@@ -22,6 +22,7 @@
 ,hyprpaper
 ,hyprshot
 ,imagemagick
+,keyd
 ,less
 ,lf
 ,linux
@@ -36,6 +37,7 @@
 ,neovim
 ,networkmanager
 ,nodejs
+,noto-fonts
 ,noto-fonts-emoji
 ,npm
 ,nsxiv
