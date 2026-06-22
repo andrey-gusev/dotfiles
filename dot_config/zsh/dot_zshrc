@@ -96,7 +96,7 @@ lfcd () {
     fi
 }
 bindkey -s '^o' '^ulfcd\n' # запуск функции lfcd (для открытия файлового менеджера lf)
-bindkey -s '^a' '^ubc -lq\n' # запуск калькулятор bc
+bindkey '^A' insert-last-word
 bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n' # поиск всех файлов на компьютере, а затем cd в эту директорию
 bindkey '^[[P' delete-char # для нормальной работы клавиши delete
 
