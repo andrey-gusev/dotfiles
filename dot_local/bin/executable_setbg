@@ -40,8 +40,8 @@ if $force_default; then
   wall=""
 elif [[ -z "$wall" && -d "$HOME/pix" ]]; then
   # Выбираем случайные обои, если не задан конкретный файл
-  # Это сработает и в автоматическом режиме, и при флаге -r
-  wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.png" \) | shuf -n 1)
+  # Добавлены форматы .jpeg и .avif, так как awww их отлично поддерживает
+  wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.avif" \) | shuf -n 1)
 fi
 
 # Применение темы и обоев
@@ -49,17 +49,19 @@ if $random_default; then
   # Новый режим: тема по умолчанию + случайные обои
   wal --theme base16-gruvbox-hard
   if [[ -n "$wall" ]]; then
-    hyprctl hyprpaper wallpaper ",$wall,contain"
+    awww img "$wall" --transition-type none
   fi
 elif [[ -z "$wall" ]]; then
   # Старый режим -d (или если обои вообще не нашлись)
   wal --theme base16-gruvbox-hard
+  awww clear
+  # Опционально: можно очистить обои, если awww это поддерживает в вашей версии,
+  # либо оставить старые, просто сбросив тему.
 else
   # Стандартный режим с генерацией цветов из обоев
   wal -c
   wal -i "$wall"
-  # hyprctl hyprpaper wallpaper ",$wall,contain"
-  hyprctl hyprpaper wallpaper ",$wall"
+  awww img "$wall" --transition-type none
 fi
 
 makoctl reload
