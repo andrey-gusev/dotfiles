@@ -1,4 +1,5 @@
 ,aria2
+,awww
 ,bat
 ,bat-extras
 ,bluetui
@@ -19,7 +20,6 @@
 ,hypridle
 ,hyprland
 ,hyprlock
-,hyprpaper
 ,hyprshot
 ,imagemagick
 ,keyd
@@ -68,6 +68,7 @@
 ,wf-recorder
 ,wget
 ,wl-clipboard
+,xdg-desktop-portal-hyprland
 ,zathura
 ,zathura-djvu
 ,zathura-pdf-mupdf
