@@ -48,7 +48,7 @@
     "custom/clock": {
         // "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
         // "exec": "date '+%a, %d %b %H:%M'",
-        "exec": "date '+%d.%m.%Y %H:%M'",
+        "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %-d %b. %H:%M'",
         "interval": 60
     },
     "custom/vpn": {
