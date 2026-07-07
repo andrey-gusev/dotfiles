@@ -106,5 +106,40 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
+history-fzf() {
+    local prefix="$LBUFFER"
+    local cmd
+
+    if [[ -n "$prefix" ]]; then
+        # Если уже что-то набрано — показываем только команды,
+        # начинающиеся с этого текста.
+        cmd=$(
+            fc -rl 1 |
+            sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
+            awk -v p="$prefix" 'index($0, p) == 1' |
+            awk '!seen[$0]++' |
+            fzf --scheme=history --query="$prefix"
+        )
+    else
+        # Если строка пустая — показываем всю историю.
+        cmd=$(
+            fc -rl 1 |
+            sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
+            awk '!seen[$0]++' |
+            fzf --scheme=history
+        )
+    fi
+
+    if [[ -n "$cmd" ]]; then
+        BUFFER="$cmd"
+        CURSOR=${#BUFFER}
+    fi
+
+    zle redisplay
+}
+
+zle -N history-fzf
+bindkey '^R' history-fzf
+
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
