@@ -18,9 +18,9 @@
         "pulseaudio",
         "disk",
         "cpu",
-        "memory", 
-        "battery", 
-        "network", 
+        "memory",
+        "battery",
+        "network",
         "custom/vpn",
         "custom/clock",
         "tray"
@@ -36,8 +36,8 @@
         "max-length": 80
     },
     "hyprland/language": {
-        "format-en": "US",
-        "format-ru": "RU"
+        "format-en": "[US]",
+        "format-ru": "[RU]"
     },
     "clock": {
         "interval": 1,
@@ -61,9 +61,10 @@
         "tooltip": false
     },
     "memory": {
+        "unit": "MB",
         "interval": 2,
         "format": "M:{used:0.1f}/{total:0.1f}G",
-        "tooltip": false
+        "tooltip": true,
     },
     "battery": {
         "states": {
