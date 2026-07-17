@@ -1,10 +1,15 @@
+# set guioptions "s"
 set statusbar-h-padding 0
 set statusbar-v-padding 0
-set guioptions ""
-set recolor false
-set selection-clipboard false
-map j scroll down
-map k scroll up
+set recolor true
+set recolor-keephue true
+set selection-clipboard true
+set window-title-basename true
+set scroll-step 100
+map j scroll smooth-down
+map k scroll smooth-up
+map h left
+map l right
 map b toggle_statusbar
 map u scroll half-up
 map d scroll half-down
