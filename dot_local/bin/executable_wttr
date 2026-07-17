@@ -3,6 +3,6 @@
 set -o pipefail
 
 curl -fsS --max-time 3 \
-  'wttr.in/Yekaterinburg?M&lang=ru&format=%c%t+(%f)' \
-  | tr -s ' ' \
-  2>/dev/null
+  'wttr.in/Yekaterinburg?M&lang=ru&format=%c%f' |
+  tr -s ' ' \
+    2>/dev/null
