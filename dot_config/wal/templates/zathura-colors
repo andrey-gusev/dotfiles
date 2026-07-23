@@ -25,5 +25,4 @@ set completion-highlight-bg        "rgba({color12.rgb},0.8)"
 set completion-highlight-fg        "{background}"
 
 set recolor-lightcolor             "{background}"
-set recolor-darkcolor              "{foreground}"
-set recolor-keephue                true
+set recolor-darkcolor              "{color10}"

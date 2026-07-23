@@ -8,8 +8,8 @@ set window-title-basename true
 set scroll-step 100
 map j scroll smooth-down
 map k scroll smooth-up
-map h left
-map l right
+map h scroll left
+map l scroll right
 map b toggle_statusbar
 map u scroll half-up
 map d scroll half-down
