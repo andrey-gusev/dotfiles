@@ -20,7 +20,7 @@ alias \
   cf="chezmoi edit ~/.config/" \
   cfz="chezmoi edit ~/.config/zsh/" \
   cfs="chezmoi edit ~/.config/shell/" \
-  cfh="chezmoi edit ~/.config/hypr/hyprland.conf" \
+  cfh="chezmoi edit ~/.config/hypr/hyprland.lua" \
   cft="chezmoi edit ~/.config/foot/foot.ini" \
   cfv="nvim ~/.config/nvim/" \
   cfw="chezmoi edit ~/.config/waybar/config" \
