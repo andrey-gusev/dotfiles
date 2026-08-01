@@ -2,7 +2,17 @@
 
 set -o pipefail
 
-curl -fsS --max-time 3 \
-  'wttr.in/Yekaterinburg?M&lang=ru&format=%c%f' |
-  tr -s ' ' \
-    2>/dev/null
+# Массив с основным и резервным доменами
+DOMAINS=("wttr.in" "wttr.is")
+
+for domain in "${DOMAINS[@]}"; do
+  output=$(curl -fsS --max-time 3 "https://${domain}/Yekaterinburg?M&format=%c+%f" 2>/dev/null)
+
+  if [ $? -eq 0 ] && [ -n "$output" ]; then
+    echo "$output" | tr -s ' '
+    exit 0
+  fi
+done
+
+# Если оба домена недоступны
+exit 1
