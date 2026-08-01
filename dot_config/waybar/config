@@ -13,7 +13,7 @@
   "modules-center": [],
   "modules-right": [
     "custom/playerctl",
-    "custom/wttr",
+    "custom/weather",
     "hyprland/language",
     "pulseaudio",
     "disk",
@@ -54,14 +54,12 @@
   "custom/clock": {
     // "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
     // "exec": "date '+%a, %d %b %H:%M'",
-    "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %-d %b. %H:%M'",
-    "interval": 60
+    "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %-d %b. %H:%M:%S'",
+    "interval": 1
   },
   "custom/vpn": {
     "exec": "vpn_status",
     "interval": 3,
-    // "on-click": "nmcli connection up my-vpn",        # ЛКМ: включить VPN
-    // "on-click-right": "nmcli connection down my-vpn"  # ПКМ: выключить VPN
   },
   "cpu": {
     "format": "C:{usage}%",
@@ -118,7 +116,7 @@
     "on-click-middle": "playerctl play-pause",
     "on-click-right": "playerctl next"
   },
-  "custom/wttr": {
+  "custom/weather": {
     "exec": "wttr",
     "interval": 600
   }
