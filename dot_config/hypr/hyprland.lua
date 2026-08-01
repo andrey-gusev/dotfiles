@@ -159,6 +159,7 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("yandex-music"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("vpn_status --copy"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " btop"))
 

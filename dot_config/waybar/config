@@ -23,6 +23,7 @@
     "network",
     "custom/vpn",
     "custom/clock",
+    // "custom/emoji",
     "tray"
   ],
   "hyprland/workspaces": {
@@ -59,7 +60,12 @@
   },
   "custom/vpn": {
     "exec": "vpn_status",
+    "on-click": "vpn_status --copy",
     "interval": 3,
+  },
+  "custom/emoji": {
+    "exec": "random_emoji",
+    "interval": 600,
   },
   "cpu": {
     "format": "C:{usage}%",
