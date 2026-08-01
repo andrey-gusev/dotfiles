@@ -5,6 +5,11 @@ IFACE=$(ip -o link show | awk -F': ' '{print $2}' | grep -E '^(tun|tap|wg|wiregu
 if [ -n "$IFACE" ]; then
   IP=$(ip -4 -o addr show "$IFACE" 2>/dev/null | awk '{print $4}' | cut -d/ -f1)
 
+  if [ "$1" = "--copy" ]; then
+    echo -n "$IP" | wl-copy
+    exit 0
+  fi
+
   case "$IFACE" in
   tailscale*) DISPLAY_NAME="${IFACE/tailscale/tlsc}" ;;
   wireguard*) DISPLAY_NAME="${IFACE/wireguard/wg}" ;;
@@ -12,5 +17,5 @@ if [ -n "$IFACE" ]; then
   *) DISPLAY_NAME="$IFACE" ;;
   esac
 
-  echo "$DISPLAY_NAME: $IP"
+  echo "$DISPLAY_NAME:$IP"
 fi
