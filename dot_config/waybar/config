@@ -1,118 +1,126 @@
 {
-    "position": "top",
-    "height": 20,
-    "margin": 0,
-    "no-center": true,
-    "expand-left": true,
-    "reload_style_on_change": true,
-    "spacing": 0,
-    "modules-left": [
-        "hyprland/workspaces", 
-        "hyprland/window"
-    ],
-    "modules-center": [],
-    "modules-right": [
-        "custom/playerctl",
-        "custom/wttr",
-        "hyprland/language",
-        "pulseaudio",
-        "disk",
-        "cpu",
-        "memory",
-        "battery",
-        "network",
-        "custom/vpn",
-        "custom/clock",
-        "tray"
-    ],
-
-    "tray": {
-        "icon-size": 14,
-        "spacing": 5
+  "position": "top",
+  "height": 20,
+  "margin": 0,
+  "no-center": true,
+  "expand-left": true,
+  "reload_style_on_change": true,
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "custom/playerctl",
+    "custom/wttr",
+    "hyprland/language",
+    "pulseaudio",
+    "disk",
+    "cpu",
+    "memory",
+    "battery",
+    "network",
+    "custom/vpn",
+    "custom/clock",
+    "tray"
+  ],
+  "hyprland/workspaces": {
+    "active-only": false,
+    "all-outputs": true,
+    "disable-scroll": false,
+    "on-click": "activate",
+    "format": "{name}"
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 5
+  },
+  "hyprland/window": {
+    "icon": true,
+    "icon-size": 14,
+    "max-length": 80
+  },
+  "hyprland/language": {
+    "format-en": "[US]",
+    "format-ru": "[RU]"
+  },
+  "clock": {
+    "interval": 1,
+    "timezone": "Asia/Yekaterinburg",
+    "format": "{:%d.%m.%Y %R:%S}",
+    "tooltip": false
+  },
+  "custom/clock": {
+    // "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
+    // "exec": "date '+%a, %d %b %H:%M'",
+    "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %-d %b. %H:%M'",
+    "interval": 60
+  },
+  "custom/vpn": {
+    "exec": "vpn_status",
+    "return-type": "json",
+    "interval": 3,
+    // "on-click": "nmcli connection up my-vpn",        # ЛКМ: включить VPN
+    // "on-click-right": "nmcli connection down my-vpn"  # ПКМ: выключить VPN
+  },
+  "cpu": {
+    "format": "C:{usage}%",
+    "tooltip": false
+  },
+  "memory": {
+    // "unit": "GB",
+    "interval": 2,
+    "format": "M:{used:0.1f}/{total:0.1f}G",
+    "tooltip": true,
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 25,
+      "critical": 15
     },
-    "hyprland/window": {
-        "icon": true,
-        "icon-size": 14,
-        "max-length": 80
-    },
-    "hyprland/language": {
-        "format-en": "[US]",
-        "format-ru": "[RU]"
-    },
-    "clock": {
-        "interval": 1,
-        "timezone": "Asia/Yekaterinburg",
-        "format": "{:%d.%m.%Y %R:%S}",
-        "tooltip": false
-    },
-    "custom/clock": {
-        // "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %d %b %H:%M'",
-        // "exec": "date '+%a, %d %b %H:%M'",
-        "exec": "LC_TIME=ru_RU.UTF-8 date '+%a, %-d %b. %H:%M'",
-        "interval": 60
-    },
-    "custom/vpn": {
-        "format": "VPN:{}",
-        "exec": "ip -4 -o addr show tun0 2>/dev/null | awk '{print $4}' | cut -d/ -f1",
-        "interval": 3
-    },
-    "cpu": {
-        "format": "C:{usage}%",
-        "tooltip": false
-    },
-    "memory": {
-        "unit": "MB",
-        "interval": 2,
-        "format": "M:{used:0.1f}/{total:0.1f}G",
-        "tooltip": true,
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 25,
-            "critical": 15
-        },
-    	"format": "B:{capacity}%",
-        "format-charging": "AC:{capacity}%",
-        "interval": 10
-    },
-    "upower": {
-        "format": "B:{percentage}",
-        "show-icon": false,
-        "tooltip-spacing": 0
-    },
-    "disk": {
-        "interval": 30,
-        "format": "D:{specific_used:0.1f}/{specific_total:0.1f}G",
-        "path": "/",
-        "unit": "GB"
-    },
-    "network": {
-        "interval": 2,
-        "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
-        "format-ethernet": "IP:{ipaddr}",
-        "format-linked": "{ifname} (LINK)",
-        "format-disconnected": "DIS",
-        "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
-        "tooltip-format": "{ifname}"
-    },
-    "pulseaudio": {
-        "format": "V:{volume}%",
-        "format-muted": "MUTE",
-        "format-bluetooth": "B:{volume}%",
-        "on-click": "pulsemixer"
-    },
-    "custom/playerctl": {
-        "format": "{}",
-        "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' 2>/dev/null | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
-        "interval": 5,
-        "return-type": "text",
-        "on-click": "playerctl previous",
-        "on-click-middle": "playerctl play-pause",
-        "on-click-right": "playerctl next"
-    },
-    "custom/wttr": {
-        "exec": "wttr",
-        "interval": 600
-    }
+    "format": "B:{capacity}%",
+    "format-charging": "AC:{capacity}%",
+    "interval": 10
+  },
+  "upower": {
+    "format": "B:{percentage}",
+    "show-icon": false,
+    "tooltip-spacing": 0
+  },
+  "disk": {
+    "interval": 30,
+    "format": "D:{specific_used:0.1f}/{specific_total:0.1f}G",
+    "path": "/",
+    "unit": "GB"
+  },
+  "network": {
+    "interval": 2,
+    "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
+    "format-ethernet": "IP:{ipaddr}",
+    "format-linked": "{ifname} (LINK)",
+    "format-disconnected": "DIS",
+    "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
+    "tooltip-format": "{ifname}"
+  },
+  "pulseaudio": {
+    "format": "V:{volume}%",
+    "format-muted": "MUTE",
+    "format-bluetooth": "B:{volume}%",
+    "on-click": "pulsemixer"
+  },
+  "custom/playerctl": {
+    "format": "{}",
+    "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' 2>/dev/null | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
+    "interval": 5,
+    "return-type": "text",
+    "on-click": "playerctl previous",
+    "on-click-middle": "playerctl play-pause",
+    "on-click-right": "playerctl next"
+  },
+  "custom/wttr": {
+    "exec": "wttr",
+    "interval": 600
+  }
 }
