@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Автоопределение активного VPN-интерфейса
+IFACE=$(ip -o link show | awk -F': ' '{print $2}' | grep -E '^(tun|tap|wg|wireguard|proton|tailscale)' | head -n 1)
+
+if [ -n "$IFACE" ]; then
+  # Получаем IP-адрес
+  IP=$(ip -4 -o addr show "$IFACE" 2>/dev/null | awk '{print $4}' | cut -d/ -f1)
+
+  # Выводим JSON для Waybar
+  echo "{\"text\": \"$IFACE: $IP\", \"tooltip\": \"Интерфейс: $IFACE\\nIP: $IP\", \"class\": \"connected\"}"
+else
+  # Если VPN отключен
+  echo ""
+fi
