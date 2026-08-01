@@ -383,8 +383,8 @@ hl.window_rule({
 })
 
 -- Убираем рамку для всех неактивных окон
-hl.window_rule({
-	name = "inactive-no-border",
-	match = { focus = false }, -- focus = false ловит все неактивные окна (аналог focus:0)
-	border_size = 0,
-})
+-- hl.window_rule({
+-- 	name = "inactive-no-border",
+-- 	match = { focus = false }, -- focus = false ловит все неактивные окна (аналог focus:0)
+-- 	border_size = 0,
+-- })
