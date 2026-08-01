@@ -59,7 +59,6 @@
   },
   "custom/vpn": {
     "exec": "vpn_status",
-    "return-type": "json",
     "interval": 3,
     // "on-click": "nmcli connection up my-vpn",        # ЛКМ: включить VPN
     // "on-click-right": "nmcli connection down my-vpn"  # ПКМ: выключить VPN
