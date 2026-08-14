@@ -3,20 +3,17 @@ require("~/.cache/wal/hyprland.lua")
 hl.monitor({
 	output = "DP-1",
 	mode = "1920x1080@143.98",
-	position = "auto",
+	position = "0x0",
 	scale = 1,
 })
 
 hl.monitor({
 	output = "HDMI-A-1",
-	disabled = true,
-})
-
-hl.monitor({
-	output = "",
-	mode = "preferred",
+	mode = "3840x2160@60",
+	-- mode = "1920x1080@60",
+	scale = 2,
 	position = "auto",
-	scale = 1,
+	disabled = false,
 })
 
 local terminal = "foot"
@@ -31,7 +28,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("foot --server")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("awww-daemon")
-	hl.exec_cmd("hypridle")
+	hl.exec_cmd("swayidle -w")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("setbg")
@@ -253,7 +250,7 @@ hl.bind("SUPER + SHIFT + A", function()
 	})
 end)
 
-hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
 hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("displayselect"))
 hl.bind(mainMod .. " + F4", hl.dsp.exec_cmd(terminal .. " -e pulsemixer"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(terminal .. " -e nmtui"))

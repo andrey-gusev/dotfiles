@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-chosen=$(echo -e "💀 Shutdown\n🔄 Reboot\n🌙 Sleep\n🚪 Exit" | rofi -dmenu -i -p "⚡ Power control")
+chosen=$(echo -e "💀 Shutdown\n🔄 Reboot\n🌙 Sleep\n🔒 Lock\n🚪 Exit" | rofi -dmenu -i -p "⚡ Power control")
 
 case "$chosen" in
-    *Shutdown*) systemctl poweroff ;;
-    *Reboot*)   systemctl reboot ;;
-    *Sleep*)    systemctl suspend ;;
-    *Exit*)     hyprctl dispatch exit ;;
-    *) exit 1 ;;
+*Shutdown*) systemctl poweroff ;;
+*Reboot*) systemctl reboot ;;
+*Sleep*) loginctl lock-session && systemctl suspend ;;
+*Lock*) loginctl lock-session ;;
+*Exit*) hyprctl dispatch exit ;;
+*) exit 1 ;;
 esac
