@@ -54,6 +54,7 @@ alias \
   wlp="wl-paste" \
   rsync="rsync -vrPlu" \
   mkd="mkdir -pv" \
+  m="mpv" \
   yt="yt-dlp --embed-metadata -i" \
   yta="yt -x -f bestaudio/best" \
   ytt="yt --skip-download --write-thumbnail" \
