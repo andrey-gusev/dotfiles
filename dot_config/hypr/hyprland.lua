@@ -13,7 +13,7 @@ hl.monitor({
 	-- mode = "1920x1080@60",
 	scale = 2,
 	position = "auto",
-	disabled = true,
+	disabled = false,
 })
 
 local terminal = "foot"
@@ -158,6 +158,7 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("$BROWSER --new-tab web.telegram.org"
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$BROWSER --new-tab music.yandex.ru"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("vpn_status --copy"))
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("udiskie-umount -a"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
 
@@ -362,6 +363,14 @@ hl.window_rule({
 	name = "tile-freerdp",
 	match = { class = "^(FreeRDP)$" },
 	tile = true,
+})
+
+hl.window_rule({
+	name = "udiskie-window",
+	match = { class = "^(udiskie)$" },
+	float = true,
+	center = true,
+	size = { 550, 200 },
 })
 
 hl.window_rule({
