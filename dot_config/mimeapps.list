@@ -1,10 +1,10 @@
 [Default Applications]
 # --- Веб и Схемы (Браузер) ---
 text/html=libreoffice.desktop
-x-scheme-handler/http=libreoffice.desktop
-x-scheme-handler/https=libreoffice.desktop
-x-scheme-handler/about=libreoffice.desktop
-x-scheme-handler/unknown=libreoffice.desktop
+x-scheme-handler/http=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
+x-scheme-handler/about=librewolf.desktop
+x-scheme-handler/unknown=librewolf.desktop
 x-scheme-handler/mailto=thunderbird.desktop
 x-scheme-handler/magnet=transmission-gtk.desktop
 
