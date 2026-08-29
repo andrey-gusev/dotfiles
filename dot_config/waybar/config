@@ -12,7 +12,7 @@
   ],
   "modules-center": [],
   "modules-right": [
-    "custom/playerctl",
+    // "custom/playerctl",
     "custom/weather",
     "hyprland/language",
     "pulseaudio",
