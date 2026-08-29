@@ -13,7 +13,7 @@ hl.monitor({
 	-- mode = "1920x1080@60",
 	scale = 2,
 	position = "auto",
-	disabled = false,
+	disabled = true,
 })
 
 local terminal = "foot"
@@ -25,13 +25,15 @@ local editor = "nvim"
 local mainMod = "SUPER"
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("foot --server")
+	hl.exec_cmd("foot")
+	-- hl.exec_cmd("foot --server")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("awww-daemon")
 	hl.exec_cmd("swayidle -w")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("setbg")
+	hl.exec_cmd("udiskie -s --event-hook 'foot -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
@@ -153,12 +155,12 @@ end)
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + GRAVE", hl.dsp.exec_cmd(emojimenu))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("Telegram"))
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("yandex-music"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("$BROWSER --new-tab web.telegram.org"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$BROWSER --new-tab music.yandex.ru"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("vpn_status --copy"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("setbg"))
-hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " btop"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
 
 -- GAPS!!
 
@@ -274,12 +276,7 @@ hl.bind(
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("record"))
 
 -- Буфер обмена
-hl.bind(
-	"SUPER + V",
-	hl.dsp.exec_cmd(
-		"cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy && wtype -M ctrl v -m ctrl"
-	)
-)
+hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"))
 
 -- Фокус
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }), { repeating = true })
@@ -296,8 +293,8 @@ hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.resize({ x = 50, y = 0, relativ
 -- Остальное
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + S", hl.dsp.window.pin())
-hl.bind(mainMod .. " + TAB", hl.dsp.window.cycle_next())
-hl.bind("ALT + TAB", hl.dsp.focus({ workspace = "previous" }))
+hl.bind("ALT + TAB", hl.dsp.window.cycle_next())
+hl.bind(mainMod .. " + TAB", hl.dsp.focus({ workspace = "previous" }))
 
 -- Перемещение окон
 hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.move({ direction = "left" }), { repeating = true })
@@ -314,7 +311,9 @@ end
 
 -- Скролл воркспейсов
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + X", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + Z", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Мышь
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
