@@ -5,7 +5,6 @@ set icons
 set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set previewer '~/.config/lf/scope'
-set sixel true
 set autoquit true
 set drawbox false
 
