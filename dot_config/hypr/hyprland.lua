@@ -32,7 +32,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("setbg")
-	hl.exec_cmd("udiskie -s --event-hook 'foot -D \"{mount_path}\" -e lf'")
+	hl.exec_cmd("udiskie --event-hook 'foot -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
@@ -156,106 +156,17 @@ hl.bind(mainMod .. " + GRAVE", hl.dsp.exec_cmd(emojimenu))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("$BROWSER --new-tab web.telegram.org"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("$BROWSER --new-tab music.yandex.ru"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("vpn_status --copy"))
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("udiskie-umount -a"))
-hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("setbg"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
-
--- GAPS!!
-
-local gaps_off = false
-
--- Дефолтные значения (твоя исходная таблица)
-local DEFAULT_GAPS_IN = 5
-local DEFAULT_GAPS_OUT = { top = 10, right = 20, bottom = 10, left = 20 }
-
-local step_out = 20
-
--- Текущие отступы (копируем дефолты)
-local gaps_in = DEFAULT_GAPS_IN
-local gaps_out = {
-	top = DEFAULT_GAPS_OUT.top,
-	right = DEFAULT_GAPS_OUT.right,
-	bottom = DEFAULT_GAPS_OUT.bottom,
-	left = DEFAULT_GAPS_OUT.left,
-}
-
--- Функция обновления конфигурации
-local function apply_gaps()
-	if gaps_off then
-		hl.config({ general = { gaps_in = 0, gaps_out = 0 } })
-	else
-		hl.config({
-			general = {
-				gaps_in = gaps_in,
-				gaps_out = gaps_out,
-			},
-		})
-	end
-end
-
--- 1. Тоггл Вкл/Выкл (ALT + A)
-hl.bind("ALT + A", function()
-	gaps_off = not gaps_off
-	apply_gaps()
-end)
-
--- 2. Увеличение всех внешних отступов на step_out (ALT + X)
-hl.bind("ALT + X", function()
-	gaps_out.top = gaps_out.top + step_out
-	gaps_out.right = gaps_out.right + step_out
-	gaps_out.bottom = gaps_out.bottom + step_out
-	gaps_out.left = gaps_out.left + step_out
-
-	gaps_off = false
-	apply_gaps()
-end, { repeating = true })
-
--- 3. Уменьшение всех внешних отступов с проверкой на 0 (ALT + Z)
-hl.bind("ALT + Z", function()
-	if gaps_out.top - step_out >= 0 and gaps_out.left - step_out >= 0 then
-		gaps_out.top = gaps_out.top - step_out
-		gaps_out.right = gaps_out.right - step_out
-		gaps_out.bottom = gaps_out.bottom - step_out
-		gaps_out.left = gaps_out.left - step_out
-
-		gaps_off = false
-		apply_gaps()
-	end
-end, { repeating = true })
-
--- 4. Сброс к дефолтной таблице (ALT + R)
-hl.bind("ALT + SHIFT + A", function()
-	gaps_in = DEFAULT_GAPS_IN
-	gaps_out = {
-		top = DEFAULT_GAPS_OUT.top,
-		right = DEFAULT_GAPS_OUT.right,
-		bottom = DEFAULT_GAPS_OUT.bottom,
-		left = DEFAULT_GAPS_OUT.left,
-	}
-	gaps_off = false
-	apply_gaps()
-end)
-
--- Состояние анимаций (true = включены, false = выключены)
-local animations_enabled = true
-
--- Переключатель анимаций (ALT + SHIFT + A)
-hl.bind("SUPER + SHIFT + A", function()
-	animations_enabled = not animations_enabled
-
-	hl.config({
-		animations = {
-			enabled = animations_enabled,
-		},
-	})
-end)
 
 hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
 hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("displayselect"))
 hl.bind(mainMod .. " + F4", hl.dsp.exec_cmd(terminal .. " -e pulsemixer"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(terminal .. " -e nmtui"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(terminal .. " -e bluetui"))
 hl.bind(
 	mainMod .. " + F12",
 	hl.dsp.exec_cmd(
@@ -352,6 +263,98 @@ hl.bind("SUPER + Escape", hl.dsp.submap("passthru"))
 hl.define_submap("passthru", function()
 	hl.bind("SUPER + Escape", hl.dsp.submap("reset"))
 end)
+
+-- GAPS!!
+
+local gaps_off = false
+
+-- Дефолтные значения (твоя исходная таблица)
+local DEFAULT_GAPS_IN = 5
+local DEFAULT_GAPS_OUT = { top = 10, right = 20, bottom = 10, left = 20 }
+
+local step_out = 20
+
+-- Текущие отступы (копируем дефолты)
+local gaps_in = DEFAULT_GAPS_IN
+local gaps_out = {
+	top = DEFAULT_GAPS_OUT.top,
+	right = DEFAULT_GAPS_OUT.right,
+	bottom = DEFAULT_GAPS_OUT.bottom,
+	left = DEFAULT_GAPS_OUT.left,
+}
+
+-- Функция обновления конфигурации
+local function apply_gaps()
+	if gaps_off then
+		hl.config({ general = { gaps_in = 0, gaps_out = 0 } })
+	else
+		hl.config({
+			general = {
+				gaps_in = gaps_in,
+				gaps_out = gaps_out,
+			},
+		})
+	end
+end
+
+-- 1. Тоггл Вкл/Выкл (ALT + A)
+hl.bind("ALT + A", function()
+	gaps_off = not gaps_off
+	apply_gaps()
+end)
+
+-- 2. Увеличение всех внешних отступов на step_out (ALT + X)
+hl.bind("ALT + X", function()
+	gaps_out.top = gaps_out.top + step_out
+	gaps_out.right = gaps_out.right + step_out
+	gaps_out.bottom = gaps_out.bottom + step_out
+	gaps_out.left = gaps_out.left + step_out
+
+	gaps_off = false
+	apply_gaps()
+end, { repeating = true })
+
+-- 3. Уменьшение всех внешних отступов с проверкой на 0 (ALT + Z)
+hl.bind("ALT + Z", function()
+	if gaps_out.top - step_out >= 0 and gaps_out.left - step_out >= 0 then
+		gaps_out.top = gaps_out.top - step_out
+		gaps_out.right = gaps_out.right - step_out
+		gaps_out.bottom = gaps_out.bottom - step_out
+		gaps_out.left = gaps_out.left - step_out
+
+		gaps_off = false
+		apply_gaps()
+	end
+end, { repeating = true })
+
+-- 4. Сброс к дефолтной таблице (ALT + R)
+hl.bind("ALT + SHIFT + A", function()
+	gaps_in = DEFAULT_GAPS_IN
+	gaps_out = {
+		top = DEFAULT_GAPS_OUT.top,
+		right = DEFAULT_GAPS_OUT.right,
+		bottom = DEFAULT_GAPS_OUT.bottom,
+		left = DEFAULT_GAPS_OUT.left,
+	}
+	gaps_off = false
+	apply_gaps()
+end)
+
+-- Состояние анимаций (true = включены, false = выключены)
+local animations_enabled = true
+
+-- Переключатель анимаций (ALT + SHIFT + A)
+hl.bind("SUPER + SHIFT + A", function()
+	animations_enabled = not animations_enabled
+
+	hl.config({
+		animations = {
+			enabled = animations_enabled,
+		},
+	})
+end)
+
+-- Winodws rules
 
 hl.window_rule({
 	name = "tile-nsxiv",
