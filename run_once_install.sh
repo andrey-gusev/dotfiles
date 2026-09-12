@@ -50,14 +50,14 @@ check_yay() {
 
   local tmpdir
   tmpdir=$(mktemp -d)
-  # Cleanup temporary directory on function return
-  trap 'rm -rf "$tmpdir"' RETURN
 
   git clone https://aur.archlinux.org/yay.git "$tmpdir"
 
   pushd "$tmpdir" >/dev/null
   makepkg -si --noconfirm
   popd >/dev/null
+
+  rm -rf "$tmpdir"
 
   command -v yay >/dev/null 2>&1 || {
     echo "ERROR: Failed to install yay" >&2
