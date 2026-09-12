@@ -23,7 +23,7 @@ imagemagick
 keyd
 less
 lf
-librewolf-bin
+librewolf
 linux
 linux-headers
 luarocks
