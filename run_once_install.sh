@@ -184,6 +184,12 @@ change_shell() {
   fi
 }
 
+check_wal_cache() {
+  if [ ! -d "$HOME/.cache/wal" ]; then
+    setbg
+  fi
+}
+
 main() {
   check_list_file
   check_arch_system
@@ -192,6 +198,7 @@ main() {
   install_packages
   enable_daemons
   change_shell
+  check_wal_cache
 }
 
 main "$@"
