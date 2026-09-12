@@ -132,6 +132,7 @@ enable_daemons() {
     "keyd.service"
     "bluetooth.service"
     "NetworkManager.service"
+    "paccache.timer"
   )
 
   echo "Checking system daemons..."
