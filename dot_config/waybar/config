@@ -12,7 +12,7 @@
   ],
   "modules-center": [],
   "modules-right": [
-    // "custom/playerctl",
+    "custom/playerctl",
     "custom/weather",
     "hyprland/language",
     "pulseaudio",
@@ -111,7 +111,7 @@
     "format": "V:{volume}%",
     "format-muted": "MUTE",
     "format-bluetooth": "B:{volume}%",
-    "on-click": "pulsemixer"
+    "on-click": "foot -e pulsemixer"
   },
   "custom/playerctl": {
     "format": "{}",
