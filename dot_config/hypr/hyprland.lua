@@ -1,4 +1,5 @@
-require("~/.cache/wal/hyprland.lua")
+local home = os.getenv("HOME")
+dofile(home .. "/.cache/wal/hyprland.lua")
 
 hl.monitor({
 	output = "DP-1",
@@ -14,6 +15,13 @@ hl.monitor({
 	scale = 2,
 	position = "auto",
 	disabled = false,
+})
+
+hl.monitor({
+	output = "",
+	mode = "preferred",
+	scale = 1,
+	position = "auto",
 })
 
 local terminal = "foot"
