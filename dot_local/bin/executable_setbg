@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 wall=""
 force_default=false
-random_default=false # Новый флаг
+random_default=false
+theme_default="base16-gruvbox-hard"
+pix_dir="${WALLPAPER_DIR:-$HOME/pix}"
 
 # Парсинг флагов и аргументов
 while [[ $# -gt 0 ]]; do
@@ -11,7 +14,7 @@ while [[ $# -gt 0 ]]; do
     force_default=true
     shift
     ;;
-  -r | --random-default) # Логика нового флага
+  -r | --random-default)
     random_default=true
     shift
     ;;
@@ -23,7 +26,6 @@ while [[ $# -gt 0 ]]; do
     exit 0
     ;;
   *)
-    # Позиционный аргумент (путь к файлу)
     if [[ -f "$1" ]]; then
       wall="$1"
     else
@@ -35,33 +37,42 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Логика выбора обоев
-if $force_default; then
-  wall=""
-elif [[ -z "$wall" && -d "$HOME/pix" ]]; then
-  # Выбираем случайные обои, если не задан конкретный файл
-  # Добавлены форматы .jpeg и .avif, так как awww их отлично поддерживает
-  wall=$(find "$HOME/pix" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.avif" \) | shuf -n 1)
+# Логика выбора обоев (запускается, только если НЕ взведен -d и НЕ был передан файл)
+if ! $force_default && [[ -z "$wall" ]]; then
+  if [[ -d "$pix_dir" ]]; then
+    # Безопасный выбор файла через NUL-байты (устойчив к пробелам)
+    wall=$(find "$pix_dir" -type f \( \
+      -iname "*.jpg" -o \
+      -iname "*.jpeg" -o \
+      -iname "*.png" -o \
+      -iname "*.avif" -o \
+      -iname "*.webp" \
+      \) -print0 2>/dev/null | shuf -z -n 1 | tr -d '\0')
+  fi
+
+  # Если файл так и не удалось найти — принудительно сбрасываем в default
+  if [[ -z "$wall" ]]; then
+    force_default=true
+  fi
 fi
 
 # Применение темы и обоев
-if $random_default; then
-  # Новый режим: тема по умолчанию + случайные обои
-  wal --theme base16-gruvbox-hard
-  if [[ -n "$wall" ]]; then
-    awww img "$wall" --transition-type none
-  fi
-elif [[ -z "$wall" ]]; then
-  # Старый режим -d (или если обои вообще не нашлись)
-  wal --theme base16-gruvbox-hard
-  awww clear
-  # Опционально: можно очистить обои, если awww это поддерживает в вашей версии,
-  # либо оставить старые, просто сбросив тему.
+if $force_default; then
+  # Явный сброс или отсутствие обоев/папки
+  wal --theme "$theme_default"
+  awww clear 2>/dev/null || true
+elif $random_default; then
+  # Статичная тема + случайная картинка из найденных
+  wal --theme "$theme_default"
+  awww img "$wall" --transition-type none
 else
-  # Стандартный режим с генерацией цветов из обоев
+  # Генерация цветов из обоев (обычный режим)
   wal -c
   wal -i "$wall"
   awww img "$wall" --transition-type none
 fi
 
-makoctl reload
+# Перезапуск уведомлений
+if command -v makoctl &>/dev/null; then
+  makoctl reload || true
+fi

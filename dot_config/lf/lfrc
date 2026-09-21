@@ -7,6 +7,8 @@ set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set previewer '~/.config/lf/scope'
 set autoquit true
 set drawbox false
+set sortby time
+set reverse
 
 cmd mkdir $mkdir -p "$@"
 cmd open $xdg-open $f
