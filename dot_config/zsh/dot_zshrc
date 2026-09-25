@@ -1,151 +1,219 @@
+# ==============================================================================
+# Prompt & Basic Settings
+# ==============================================================================
+
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-setopt autocd # перемещение в дироекторию без использования cd
-stty stop undef # выключает заморозку терминала Ctrl+S
-setopt interactive_comments # включает комментарии в терминале (#)
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-HISTSIZE=50000 # устанавливает максимальное количество команд, которые Zsh держит в оперативной памяти текущей сессии
-SAVEHIST=50000 # устанавливает количество команд, которые будут физически сохранены в файле истории на диске при закрытии терминала
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history" # указывает путь к файлу, где лежит твоя история
-# Синхронизация истории между всеми окнами в реальном времени
-setopt share_history
+setopt autocd              # Change directory without using 'cd'
+setopt interactive_comments # Enable comments in interactive shell (#)
+stty stop undef            # Disable terminal freeze with Ctrl+S
 
-# Рекомендуется: удаляет старые дубликаты из файла истории
-setopt hist_ignore_all_dups
+# ==============================================================================
+# History Configuration
+# ==============================================================================
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" # подключает алиасы
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+
+setopt share_history       # Share history across all sessions in real-time
+setopt hist_ignore_space   # Do not record commands starting with a space
+setopt hist_reduce_blanks  # Remove superfluous blanks from history
+setopt hist_verify         # Show command before execution from history
+setopt extended_history    # Save execution timestamp and duration
+setopt hist_ignore_all_dups # Remove old duplicates from history file
+
+# ==============================================================================
+# External Shell Files
+# ==============================================================================
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 
-# включает возможность по второму табу интерактивно выбирать из списка
-zstyle ':completion:*' menu select 
+# ==============================================================================
+# Completion Engine & Options
+# ==============================================================================
 
-# выбор подсказок с помощью vim-клавиш
-zmodload zsh/complist #
+setopt extendedglob
+autoload -Uz compinit
 
-# включает автодополнение команд, названий файлов/директорий и даже команд с флагами!
-autoload -U compinit && compinit  
+zmodload zsh/complist
 
-# поддержка скрытых файлов
-_comp_options+=(globdots) 
+# Enable menu selection on second Tab press
+zstyle ':completion:*' menu select
 
-# умный fuzzy-поиск (ищет совпадения, даже если ты пропустил папки)
-zstyle ':completion:*' completer _complete _match _approximate 
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-eval "$(dircolors -b)"
-zstyle ':completion:*:descriptions' format '%F{magenta}%B[%d]%b%f'
+ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+
+# Initialize completion dump if missing or older than 24 hours
+if [[ -n ${ZSH_COMPDUMP}(#qN.mh+24) || ! -f "$ZSH_COMPDUMP" ]]; then
+  compinit -d "$ZSH_COMPDUMP"
+  touch "$ZSH_COMPDUMP"
+else
+  compinit -C -d "$ZSH_COMPDUMP"
+fi
+
+# Support hidden files (dotfiles)
+_comp_options+=(globdots)
+
+# Smart fuzzy matching logic
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' matcher-list \
+  'm:{a-zA-Z}={A-Za-z}' \
+  'r:|[._-]=* r:|=*' \
+  'l:|=* r:|=*'
+
+# Enable completion caching
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+
+# Formatting options for completion messages
+zstyle ':completion:*:descriptions' format '%F{magenta}%B%d%b%f'
+zstyle ':completion:*:messages' format '%F{yellow}%d%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches for: %d%f'
+
+# Approximate completion: allow up to 3 errors
+zstyle ':completion:*:approximate:*' max-errors 3 numeric
+
+# File sorting and directory display
+zstyle ':completion:*' file-sort modification
+zstyle ':completion:*' special-dirs true
+
+# Optimize git completion order
+zstyle ':completion::complete:git-*:argument-rest:' tag-order 'common-commands'
+
+# Load custom dircolors if available
+if [[ -f ~/.dircolors ]]; then
+  eval "$(dircolors -b ~/.dircolors)"
+fi
+
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# vi mode
+# ==============================================================================
+# Keybindings & Vi Mode
+# ==============================================================================
+
 bindkey -v
 export KEYTIMEOUT=1
 
-# Use vim keys in tab complete menu:
+# Navigation using Vim keys in completion menu
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
+# Toggle 'sudo' prefix on current or previous command line
 sudo-command-line() {
-    # Запоминаем, была ли строка изначально пустой
-    local was_empty=0
-    if [[ -z $BUFFER ]]; then
-        was_empty=1
-        BUFFER=$(fc -ln -1 | sed 's/^[[:space:]]*//')
-    fi
+  local was_empty=0
+  if [[ -z $BUFFER ]]; then
+    was_empty=1
+    BUFFER=$(fc -ln -1 | sed 's/^[[:space:]]*//')
+  fi
 
-    # Работаем с sudo
-    if [[ $BUFFER == sudo\ * ]]; then
-        BUFFER="${BUFFER#sudo }"
-        (( CURSOR -= 5 ))
-    else
-        BUFFER="sudo $BUFFER"
-        (( CURSOR += 5 ))
-    fi
+  if [[ $BUFFER == sudo\ * ]]; then
+    BUFFER="${BUFFER#sudo }"
+    (( CURSOR -= 5 ))
+  else
+    BUFFER="sudo $BUFFER"
+    (( CURSOR += 5 ))
+  fi
 
-    # Если изначально строка была пустой, принудительно отправляем курсор в конец
-    if (( was_empty )); then
-        CURSOR=$#BUFFER
-    fi
+  if (( was_empty )); then
+    CURSOR=$#BUFFER
+  fi
 }
 
 zle -N sudo-command-line
 bindkey -M viins '^[s' sudo-command-line
 bindkey -M vicmd '^[s' sudo-command-line
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
-    esac
+# Dynamic cursor shape based on Vi mode
+function zle-keymap-select() {
+  case $KEYMAP in
+    vicmd) echo -ne '\e[2 q' ;;      # Block cursor
+    viins|main) echo -ne '\e[6 q' ;; # Beam cursor
+  esac
 }
 zle -N zle-keymap-select
+
 zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
+  zle -K viins
+  echo -ne "\e[6 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp -uq)"
-    trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
+# Use beam cursor on startup and reset for each new prompt
+echo -ne '\e[6 q'
+preexec() { echo -ne '\e[6 q' ; }
+
+# File manager 'lf' integration to change directory on exit
+lfcd() {
+  tmp="$(mktemp -uq)"
+  trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
+  lf -last-dir-path="$tmp" "$@"
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+  fi
 }
-bindkey -s '^o' '^ulfcd\n' # запуск функции lfcd (для открытия файлового менеджера lf)
-bindkey '^A' insert-last-word
-bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n' # поиск всех файлов на компьютере, а затем cd в эту директорию
-bindkey '^[[P' delete-char # для нормальной работы клавиши delete
 
-autoload edit-command-line; zle -N edit-command-line # редактирование команды в vim
+bindkey -s '^o' '^ulfcd\n'                     # Launch lfcd file manager
+bindkey '^A' insert-last-word
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n' # Search files via fzf and cd to directory
+bindkey '^[[P' delete-char                    # Fix Delete key behavior
+
+# Edit current command line in Vim
+autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
-history-fzf() {
-    fc -R # Перечитывает файл истории с диска прямо перед вызовом fzf
+# Copy selection from ZLE Visual Mode to system clipboard (Wayland)
+zsh-vi-yank-wl() {
+  zle vi-yank
+  echo -n "$CUTBUFFER" | wl-copy
+}
+zle -N zsh-vi-yank-wl
+bindkey -M visual 'y' zsh-vi-yank-wl
 
-    local prefix="$LBUFFER"
-    local cmd
+# ==============================================================================
+# Integrations & Plugins
+# ==============================================================================
 
-    if [[ -n "$prefix" ]]; then
-        # Если уже что-то набрано — показываем только команды,
-        # начинающиеся с этого текста.
-        cmd=$(
-            fc -rl 1 |
-            sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-            awk -v p="$prefix" 'index($0, p) == 1' |
-            awk '!seen[$0]++' |
-            fzf --scheme=history --query="$prefix"
-        )
-    else
-        # Если строка пустая — показываем всю историю.
-        cmd=$(
-            fc -rl 1 |
-            sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-            awk '!seen[$0]++' |
-            fzf --scheme=history
-        )
-    fi
+# Fast fzf integration initialization via cache
+_fzf_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf_init.zsh"
+if [[ ! -f "$_fzf_cache" ]]; then
+  mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+  fzf --zsh > "$_fzf_cache" 2>/dev/null
+fi
+source "$_fzf_cache"
 
-    if [[ -n "$cmd" ]]; then
-        BUFFER="$cmd"
-        CURSOR=${#BUFFER}
-    fi
-
-    zle redisplay
+# Patch fzf history widget to re-read history file
+functions[_fzf_history_orig]=$functions[fzf-history-widget]
+fzf-history-widget() {
+  fc -R
+  _fzf_history_orig "$@"
 }
 
-zle -N history-fzf
-bindkey '^R' history-fzf
-
+# External Zsh plugins
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# ==============================================================================
+# Auto-compilation
+# ==============================================================================
+
+# Auto-compile .zshrc
+if [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+  zcompile ~/.zshrc
+fi
+
+# Auto-compile zcompdump
+zcompdump="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+if [[ -f "$zcompdump" && "$zcompdump" -nt "${zcompdump}.zwc" ]]; then
+  zcompile "$zcompdump"
+fi
+
+unsetopt promptsp
