@@ -1,7 +1,5 @@
 aria2
 awww
-bat
-bat-extras
 bluetui
 bluez
 brightnessctl
