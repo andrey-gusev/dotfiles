@@ -14,11 +14,12 @@ se() {
 alias \
   ll="ls -l" \
   la="ls -la" \
+  alias foot="footclient" \
   ca="chezmoi apply" \
   cu="chezmoi update" \
   cdc="cd ~/.local/share/chezmoi/" \
   cf="chezmoi edit ~/.config/" \
-  cfz="chezmoi edit ~/.config/zsh/" \
+  cfz="chezmoi edit ~/.config/zsh/.zshrc" \
   cfs="chezmoi edit ~/.config/shell/" \
   cfh="chezmoi edit ~/.config/hypr/hyprland.lua" \
   cft="chezmoi edit ~/.config/foot/foot.ini" \
@@ -34,7 +35,6 @@ alias \
   gr="git remote set-url origin git@github.com:andrey-gusev/dotfiles.git" \
   gs="git status" \
   lg="lazygit" \
-  man="batman" \
   ka="killall" \
   sys="sudo systemctl" \
   t="sudo tailscale" \
