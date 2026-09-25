@@ -192,7 +192,6 @@ main() {
   install_packages
   enable_daemons
   change_shell
-  setbg
 }
 
 main "$@"
