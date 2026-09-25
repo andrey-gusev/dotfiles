@@ -43,7 +43,7 @@ hl.monitor({
 	position = "auto",
 })
 
-local terminal = "foot"
+local terminal = "footclient"
 local fileManager = "lf"
 local menu = "rofi -show drun"
 local emojimenu = "rofi -show emoji"
@@ -59,7 +59,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("setbg")
-	hl.exec_cmd("udiskie --event-hook 'foot -D \"{mount_path}\" -e lf'")
+	hl.exec_cmd("udiskie --event-hook 'footclient -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
