@@ -1,8 +1,8 @@
-# Блокировка экрана через 5 минут (300 сек)
-timeout 300 'swaylock -f -c 000000'
+# Отключение мониторов через 5 минут (300 сек)
+timeout 300 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
 
-# Отключение мониторов через 10 минут (600 сек)
-timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
+# Блокировка экрана через 10 минут (600 сек)
+timeout 600 'swaylock -f -c 000000'
 
 # Автоматический сон через 15 минут (900 сек)
 timeout 900 'systemctl suspend'
