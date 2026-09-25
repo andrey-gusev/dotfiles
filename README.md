@@ -25,7 +25,7 @@ sudo pacman -S chezmoi git
 1. Инициализируйте и примените конфигурацию:
 
 ```bash
-chezmoi init --apply [https://github.com/andrey-gusev/dotfiles](https://github.com/andrey-gusev/dotfiles)
+chezmoi init --apply https://github.com/andrey-gusev/dotfiles
 
 ```
 
