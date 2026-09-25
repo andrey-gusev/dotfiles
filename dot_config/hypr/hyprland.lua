@@ -1,24 +1,5 @@
 ---@diagnostic disable: undefined-global
-local home = os.getenv("HOME")
-local colors_file = home .. "/.cache/wal/hyprland.lua"
-
--- Вспомогательная функция для проверки наличия файла
-local function file_exists(path)
-	local f = io.open(path, "r")
-	if f then
-		f:close()
-		return true
-	end
-	return false
-end
-
--- Если цвета еще не сгенерированы (первый запуск), генерируем их прямо сейчас
-if not file_exists(colors_file) then
-	os.execute(home .. "/.local/bin/setbg")
-end
-
--- Теперь файл гарантированно существует
-dofile(colors_file)
+require(os.getenv("HOME") .. "/.cache/wal/hyprland.lua")
 
 hl.monitor({
 	output = "DP-1",
