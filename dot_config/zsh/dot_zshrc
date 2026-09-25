@@ -7,7 +7,11 @@ setopt interactive_comments # включает комментарии в тер�
 HISTSIZE=50000 # устанавливает максимальное количество команд, которые Zsh держит в оперативной памяти текущей сессии
 SAVEHIST=50000 # устанавливает количество команд, которые будут физически сохранены в файле истории на диске при закрытии терминала
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history" # указывает путь к файлу, где лежит твоя история
-setopt inc_append_history # записывает команды в кэш сразу после выполнения
+# Синхронизация истории между всеми окнами в реальном времени
+setopt share_history
+
+# Рекомендуется: удаляет старые дубликаты из файла истории
+setopt hist_ignore_all_dups
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" # подключает алиасы
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
@@ -107,6 +111,8 @@ bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
 history-fzf() {
+    fc -R # Перечитывает файл истории с диска прямо перед вызовом fzf
+
     local prefix="$LBUFFER"
     local cmd
 
