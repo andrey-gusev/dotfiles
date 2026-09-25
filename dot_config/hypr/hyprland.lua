@@ -1,5 +1,24 @@
+---@diagnostic disable: undefined-global
 local home = os.getenv("HOME")
-dofile(home .. "/.cache/wal/hyprland.lua")
+local colors_file = home .. "/.cache/wal/hyprland.lua"
+
+-- Вспомогательная функция для проверки наличия файла
+local function file_exists(path)
+	local f = io.open(path, "r")
+	if f then
+		f:close()
+		return true
+	end
+	return false
+end
+
+-- Если цвета еще не сгенерированы (первый запуск), генерируем их прямо сейчас
+if not file_exists(colors_file) then
+	os.execute(home .. "/.local/bin/setbg")
+end
+
+-- Теперь файл гарантированно существует
+dofile(colors_file)
 
 hl.monitor({
 	output = "DP-1",
@@ -14,7 +33,7 @@ hl.monitor({
 	-- mode = "1920x1080@60",
 	scale = 2,
 	position = "auto",
-	disabled = true,
+	disabled = false,
 })
 
 hl.monitor({
@@ -152,6 +171,7 @@ hl.bind("F24", hl.dsp.exec_cmd("hyprctl switchxkblayout all next"), { locked = t
 -- Основные
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd(terminal), { repeating = true })
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { repeating = true })
+hl.bind(mainMod .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exit())
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(terminal .. " -e " .. fileManager))
 hl.bind(mainMod .. " + SHIFT + SPACE", function()
