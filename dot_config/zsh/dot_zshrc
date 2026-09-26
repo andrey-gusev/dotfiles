@@ -4,6 +4,7 @@
 
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+[[ -o interactive ]] && cat ~/.cache/wal/sequences
 
 setopt autocd              # Change directory without using 'cd'
 setopt interactive_comments # Enable comments in interactive shell (#)
