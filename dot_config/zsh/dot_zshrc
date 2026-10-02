@@ -4,7 +4,7 @@
 
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%m %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-[[ -o interactive ]] && cat ~/.cache/wal/sequences
+# [ -f ~/.cache/wal/sequences ] && cat ~/.cache/wal/sequences
 
 setopt autocd              # Change directory without using 'cd'
 setopt interactive_comments # Enable comments in interactive shell (#)
@@ -201,6 +201,9 @@ fzf-history-widget() {
 # External Zsh plugins
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+bindkey -M viins '^[ ' autosuggest-accept
+bindkey -M viins '^[l' forward-word
 
 # ==============================================================================
 # Auto-compilation
