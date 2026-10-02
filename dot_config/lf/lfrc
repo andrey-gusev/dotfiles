@@ -75,6 +75,7 @@ map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//'
 
 map gh cd ~
 map gd cd ~/Downloads
+map gb cd ~/books
 map gp cd ~/pix
 map gm cd /mnt
 
