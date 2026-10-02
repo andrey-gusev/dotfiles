@@ -24,7 +24,7 @@ hl.monitor({
 	position = "auto",
 })
 
-local terminal = "footclient"
+local terminal = "foot"
 local fileManager = "lf"
 local menu = "rofi -show drun"
 local emojimenu = "rofi -show emoji"
@@ -33,14 +33,13 @@ local editor = "nvim"
 local mainMod = "SUPER"
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("foot --server")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("awww-daemon")
 	hl.exec_cmd("swayidle -w")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
 	hl.exec_cmd("setbg")
-	hl.exec_cmd("udiskie --event-hook 'footclient -D \"{mount_path}\" -e lf'")
+	hl.exec_cmd("udiskie --event-hook 'foot -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
@@ -175,7 +174,7 @@ hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 00000
 hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("displayselect"))
 hl.bind(mainMod .. " + F4", hl.dsp.exec_cmd(terminal .. " -e pulsemixer"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(terminal .. " -e nmtui"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(terminal .. " -e bluetui"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(terminal .. " bluetui"))
 hl.bind(
 	mainMod .. " + F12",
 	hl.dsp.exec_cmd(
