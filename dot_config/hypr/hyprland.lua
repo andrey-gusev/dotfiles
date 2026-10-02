@@ -38,6 +38,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("swayidle -w")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
+	hl.exec_cmd("ydotoold")
 	hl.exec_cmd("udiskie --event-hook 'foot -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
@@ -120,7 +121,7 @@ hl.config({
 	cursor = {
 		inactive_timeout = 1,
 		no_warps = true,
-		hide_on_key_press = true,
+		hide_on_key_press = false,
 	},
 
 	input = {
@@ -179,6 +180,17 @@ hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("vpn_status --copy"))
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("udiskie-umount -a"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
+
+-- Перемещение курсора мыши (с повторением при зажатии)
+hl.bind("ALT + H", hl.dsp.exec_cmd("ydotool mousemove -x -20 -y 0"), { repeating = true })
+hl.bind("ALT + L", hl.dsp.exec_cmd("ydotool mousemove -x 20 -y 0"), { repeating = true })
+hl.bind("ALT + K", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y -20"), { repeating = true })
+hl.bind("ALT + J", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y 20"), { repeating = true })
+
+-- Клики мыши (одиночные нажатия)
+hl.bind("ALT + U", hl.dsp.exec_cmd("ydotool click 0xC0"))
+hl.bind("ALT + I", hl.dsp.exec_cmd("ydotool click 0xC1"))
+hl.bind("ALT + O", hl.dsp.exec_cmd("ydotool click 0xC2"))
 
 hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
 hl.bind(mainMod .. " + BACKSLASH", function()

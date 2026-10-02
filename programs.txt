@@ -68,6 +68,7 @@ wget
 wl-clipboard
 wtype
 xdg-desktop-portal-hyprland
+ydotool
 zathura
 zathura-djvu
 zathura-pdf-mupdf
