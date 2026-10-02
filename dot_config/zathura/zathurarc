@@ -3,9 +3,9 @@ set statusbar-h-padding 0
 set statusbar-v-padding 0
 set recolor true
 set recolor-keephue true
-set selection-clipboard true
 set window-title-basename true
 set scroll-step 100
+set selection-clipboard clipboard
 map j scroll smooth-down
 map k scroll smooth-up
 map h scroll left
@@ -21,4 +21,5 @@ map J zoom out
 map i recolor
 map p print
 map g goto top
+map <C-r> feedkeys ":source<Return>"
 include ../../.cache/wal/zathura-colors

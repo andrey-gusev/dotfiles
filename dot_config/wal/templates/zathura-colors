@@ -1,28 +1,33 @@
-set default-bg                     "{background}"
-set default-fg                     "{foreground}"
+set default-bg                      "{background}"
+set default-fg                      "{foreground}"
 
-set statusbar-bg                   "rgba({color12.rgb},0.85)"
-set statusbar-fg                   "{background}"
+# Статус-бар: глубокий тёмный фон + контрастный светлый текст
+set statusbar-bg                    "{color0}"
+set statusbar-fg                    "{foreground}"
 
-set inputbar-bg                    "rgba({color8.rgb},0.85)"
-set inputbar-fg                    "{foreground}"
+set inputbar-bg                     "{color0}"
+set inputbar-fg                     "{foreground}"
 
-set notification-bg                "rgba({background.rgb},0.9)"
-set notification-fg                "{foreground}"
+# Уведомления
+set notification-bg                 "{color0}"
+set notification-fg                 "{foreground}"
 
-set notification-error-bg          "rgba({background.rgb},0.9)"
-set notification-error-fg          "{color1}"
+set notification-error-bg           "{color1}"
+set notification-error-fg           "{background}"
 
-set notification-warning-bg        "rgba({background.rgb},0.9)"
-set notification-warning-fg        "{color3}"
+set notification-warning-bg         "{color3}"
+set notification-warning-fg         "{background}"
 
-set highlight-color                "rgba({color10.rgb},0.5)"
-set highlight-active-color         "rgba({color14.rgb},0.65)"
+# Полупрозрачное выделение при поиске
+set highlight-color                 "rgba({color11.rgb},0.4)"
+set highlight-active-color          "rgba({color9.rgb},0.6)"
 
-set completion-bg                  "rgba({color8.rgb},0.9)"
-set completion-fg                  "{foreground}"
-set completion-highlight-bg        "rgba({color12.rgb},0.8)"
-set completion-highlight-fg        "{background}"
+# Автодополнение команд
+set completion-bg                   "{color0}"
+set completion-fg                   "{foreground}"
+set completion-highlight-bg         "{color12}"
+set completion-highlight-fg         "{background}"
 
-set recolor-lightcolor             "{background}"
-set recolor-darkcolor              "{color10}"
+# Перекрашивание документов (Recolor)
+set recolor-lightcolor              "{background}"
+set recolor-darkcolor               "{foreground}"
