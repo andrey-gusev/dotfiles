@@ -4,7 +4,7 @@ export PATH="$PATH:$HOME/.config/emacs/bin"
 export PAGER="less -R --no-init"
 export MANPAGER="less -R --no-init"
 export MANWIDTH=80
-export LS_COLORS="$LS_COLORS:ow=30;43:tw=30;42:"
+export LS_COLORS="$LS_COLORS:ow=32;40:tw=32;40:"
 export EDITOR="nvim"
 export TERMINAL="footclient"
 export TERMINAL_PROG="footclient"
