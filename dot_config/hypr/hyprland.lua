@@ -38,7 +38,6 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("swayidle -w")
 	hl.exec_cmd("hyprsunset")
 	hl.exec_cmd("mako")
-	hl.exec_cmd("setbg")
 	hl.exec_cmd("udiskie --event-hook 'foot -D \"{mount_path}\" -e lf'")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
@@ -51,6 +50,10 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 
+-- hl.decoration.glow({
+-- 	enabled = true,
+-- })
+
 hl.config({
 	general = {
 		gaps_in = 5,
@@ -58,7 +61,8 @@ hl.config({
 		border_size = 3,
 		col = {
 			active_border = color1,
-			inactive_border = "rgba(0,0,0,0)",
+			-- inactive_border = "rgba(0,0,0,0)",
+			inactive_border = background,
 		},
 		resize_on_border = false,
 		allow_tearing = true,
@@ -92,6 +96,10 @@ hl.config({
 		blur = {
 			enabled = false,
 		},
+
+		motion_blur = {
+			enabled = false,
+		},
 	},
 
 	animations = {
@@ -102,6 +110,8 @@ hl.config({
 		force_default_wallpaper = 0,
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
+		mouse_move_enables_dpms = true,
+		key_press_enables_dpms = true,
 		enable_swallow = true,
 		swallow_regex = "^(" .. terminal .. ")$",
 		background_color = "rgb(0, 0, 0)",
@@ -171,6 +181,11 @@ hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
 
 hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
+hl.bind(mainMod .. " + BACKSLASH", function()
+	hl.timer(function()
+		hl.dispatch(hl.dsp.dpms({ action = "off" }))
+	end, { timeout = 500, type = "oneshot" })
+end)
 hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("displayselect"))
 hl.bind(mainMod .. " + F4", hl.dsp.exec_cmd(terminal .. " -e pulsemixer"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(terminal .. " -e nmtui"))

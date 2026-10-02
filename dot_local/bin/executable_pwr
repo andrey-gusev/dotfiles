@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-chosen=$(echo -e "💀 Shutdown\n🔄 Reboot\n🌙 Sleep\n🔒 Lock\n🚪 Exit" | rofi -dmenu -i -p "⚡ Power control")
+chosen=$(echo -e "💀 Shutdown\n🔄 Reboot\n🌙 Sleep\n🖥️ Screen Off\n🔒 Lock\n🚪 Exit" | rofi -dmenu -i -p "⚡ Power control")
 
 case "$chosen" in
 *Shutdown*) systemctl poweroff ;;
 *Reboot*) systemctl reboot ;;
 *Sleep*) loginctl lock-session && systemctl suspend ;;
+*"Screen Off"*) sleep 0.1 && hyprctl dispatch 'hl.dsp.dpms({ action = "off" })' ;;
 *Lock*) loginctl lock-session ;;
 *Exit*) hyprctl dispatch exit ;;
 *) exit 1 ;;
