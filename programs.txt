@@ -58,6 +58,7 @@ tesseract-data-rus
 translate-shell
 tree-sitter-cli
 ttf-firacode-nerd
+ttf-jetbrains-mono
 udiskie
 udisks2
 usbutils
