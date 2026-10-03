@@ -2,7 +2,7 @@
   "position": "top",
   "height": 20,
   "margin": 0,
-  "no-center": true,
+  "no-center": false,
   "expand-left": true,
   "reload_style_on_change": true,
   "spacing": 0,
@@ -10,8 +10,11 @@
     "hyprland/workspaces",
     "hyprland/window"
   ],
-  "modules-center": [],
+  "modules-center": [
+    "custom/clock"
+  ],
   "modules-right": [
+    "hyprland/submap",
     "custom/playerctl",
     "custom/weather",
     "hyprland/language",
@@ -22,7 +25,7 @@
     "battery",
     "network",
     "custom/vpn",
-    "custom/clock",
+    // "custom/clock",
     // "custom/emoji",
     "tray"
   ],
@@ -32,6 +35,10 @@
     "disable-scroll": false,
     "on-click": "activate",
     "format": "{name}"
+  },
+  "hyprland/submap": {
+    "format": "[{}]",
+    "tooltip": false,
   },
   "tray": {
     "icon-size": 14,
@@ -115,12 +122,14 @@
   },
   "custom/playerctl": {
     "format": "{}",
-    "exec": "playerctl metadata --format '{{ artist }} — {{ title }}' 2>/dev/null | awk -F' — ' '{if(length($1) > 30) print substr($1, 1, 27) \"...\" \" — \"$2; else print $0}'",
-    "interval": 5,
+    "exec": "music_status",
+    "interval": 2,
     "return-type": "text",
     "on-click": "playerctl previous",
     "on-click-middle": "playerctl play-pause",
-    "on-click-right": "playerctl next"
+    "on-click-right": "playerctl next",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
   },
   "custom/weather": {
     "exec": "wttr",
