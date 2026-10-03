@@ -206,7 +206,7 @@ hl.define_submap("mouse_mode", function()
 	hl.bind("SUPER + M", hl.dsp.submap("reset"))
 end)
 
-hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
+hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + BACKSLASH", function()
 	hl.timer(function()
 		hl.dispatch(hl.dsp.dpms({ action = "off" }))
