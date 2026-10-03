@@ -192,6 +192,13 @@ hl.bind("ALT + U", hl.dsp.exec_cmd("ydotool click 0xC0"))
 hl.bind("ALT + I", hl.dsp.exec_cmd("ydotool click 0xC1"))
 hl.bind("ALT + O", hl.dsp.exec_cmd("ydotool click 0xC2"))
 
+-- Прокрутка колесика (Alt + Shift + K - Вверх, Alt + Shift + J - Вниз)
+-- Прокрутка вверх
+hl.bind("CTRL + ALT + K", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y 2"), { repeating = true })
+
+-- Прокрутка вниз
+hl.bind("CTRL + ALT + J", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y -2"), { repeating = true })
+
 hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
 hl.bind(mainMod .. " + BACKSLASH", function()
 	hl.timer(function()

@@ -151,6 +151,14 @@ enable_daemons() {
   done
 }
 
+add_user_to_group() {
+  if id -nG "$USER" | grep -w input; then
+    echo "INFO: User is in INPUT group already"
+    return 0
+  fi
+  sudo usermod -aG input "$USER"
+}
+
 change_shell() {
   # Check if zsh is installed
   if ! command -v zsh >/dev/null 2>&1; then
@@ -190,6 +198,7 @@ main() {
   check_yay
   prompt_interactive_mode
   install_packages
+  add_user_to_group
   enable_daemons
   change_shell
 }
