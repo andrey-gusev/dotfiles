@@ -181,23 +181,30 @@ hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("udiskie-umount -a"))
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("setbg"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(terminal .. " htop"))
 
--- Перемещение курсора мыши (с повторением при зажатии)
-hl.bind("ALT + H", hl.dsp.exec_cmd("ydotool mousemove -x -20 -y 0"), { repeating = true })
-hl.bind("ALT + L", hl.dsp.exec_cmd("ydotool mousemove -x 20 -y 0"), { repeating = true })
-hl.bind("ALT + K", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y -20"), { repeating = true })
-hl.bind("ALT + J", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y 20"), { repeating = true })
+-- 1. Назначаем сочетание клавиш для входа в режим мыши (например, ALT + M)
+hl.bind("ALT + M", hl.dsp.submap("mouse_mode"))
 
--- Клики мыши (одиночные нажатия)
-hl.bind("ALT + U", hl.dsp.exec_cmd("ydotool click 0xC0"))
-hl.bind("ALT + I", hl.dsp.exec_cmd("ydotool click 0xC1"))
-hl.bind("ALT + O", hl.dsp.exec_cmd("ydotool click 0xC2"))
+-- 2. Объявляем подкарту "mouse_mode"
+hl.define_submap("mouse_mode", function()
+	-- Перемещение курсора (с повторением при удержании)
+	hl.bind("ALT + H", hl.dsp.exec_cmd("ydotool mousemove -x -20 -y 0"), { repeating = true })
+	hl.bind("ALT + L", hl.dsp.exec_cmd("ydotool mousemove -x 20 -y 0"), { repeating = true })
+	hl.bind("ALT + K", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y -20"), { repeating = true })
+	hl.bind("ALT + J", hl.dsp.exec_cmd("ydotool mousemove -x 0 -y 20"), { repeating = true })
 
--- Прокрутка колесика (Alt + Shift + K - Вверх, Alt + Shift + J - Вниз)
--- Прокрутка вверх
-hl.bind("CTRL + ALT + K", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y 2"), { repeating = true })
+	-- Клики мыши
+	hl.bind("ALT + U", hl.dsp.exec_cmd("ydotool click 0xC0"))
+	hl.bind("ALT + I", hl.dsp.exec_cmd("ydotool click 0xC1"))
+	hl.bind("ALT + O", hl.dsp.exec_cmd("ydotool click 0xC2"))
 
--- Прокрутка вниз
-hl.bind("CTRL + ALT + J", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y -2"), { repeating = true })
+	-- Прокрутка колесика
+	hl.bind("CTRL + ALT + K", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y 2"), { repeating = true })
+	hl.bind("CTRL + ALT + J", hl.dsp.exec_cmd("ydotool mousemove -w -x 0 -y -2"), { repeating = true })
+
+	-- Выход из режима мыши обратно в стандартное состояние
+	hl.bind("escape", hl.dsp.submap("reset"))
+	hl.bind("ALT + M", hl.dsp.submap("reset"))
+end)
 
 hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.exec_cmd("swaylock -f -c 000000"))
 hl.bind(mainMod .. " + BACKSLASH", function()
