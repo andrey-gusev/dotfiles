@@ -16,11 +16,11 @@
   "modules-right": [
     "hyprland/submap",
     "custom/playerctl",
-    "custom/weather",
+    // "custom/weather",
     "hyprland/language",
     "pulseaudio",
     "disk",
-    "cpu",
+    // "cpu",
     "memory",
     "battery",
     "network",
@@ -50,8 +50,8 @@
     "max-length": 80
   },
   "hyprland/language": {
-    "format-en": "[US]",
-    "format-ru": "[RU]"
+    "format-en": "US",
+    "format-ru": "RU"
   },
   "clock": {
     "interval": 1,
@@ -107,11 +107,12 @@
   },
   "network": {
     "interval": 2,
-    "format-wifi": "{essid}:{signalStrength}% IP:{ipaddr}",
-    "format-ethernet": "IP:{ipaddr}",
-    "format-linked": "{ifname} (LINK)",
+    // "format-wifi": "{essid}:{signalStrength}% {ipaddr}",
+    "format-wifi": "{essid} {ipaddr}",
+    "format-ethernet": "{ipaddr}",
+    "format-linked": "{ifname}",
     "format-disconnected": "DIS",
-    "format-alt": "{bandwidthDownBits:>} {bandwidthUpBits:>}",
+    "format-alt": "↓{bandwidthDownBits:>} ↑{bandwidthUpBits:>}",
     "tooltip-format": "{ifname}"
   },
   "pulseaudio": {
