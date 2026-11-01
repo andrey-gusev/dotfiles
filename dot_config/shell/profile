@@ -5,7 +5,7 @@ export PAGER="less -R --no-init"
 export MANPAGER="less -R --no-init"
 export MANWIDTH=80
 export LS_COLORS="$LS_COLORS:ow=32;40:tw=32;40:"
-export EDITOR="nvim"
+export EDITOR="helix"
 export TERMINAL="footclient"
 export TERMINAL_PROG="footclient"
 export BROWSER="librewolf"
