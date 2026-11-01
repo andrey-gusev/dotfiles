@@ -24,7 +24,7 @@ alias \
   cfh="chezmoi edit ~/.config/hypr/hyprland.lua" \
   cft="chezmoi edit ~/.config/foot/foot.ini" \
   cfv="nvim ~/.config/nvim/" \
-  cfw="chezmoi edit ~/.config/waybar/config" \
+  cfw="chezmoi edit ~/.config/waybar/config.jsonc" \
   cfws="chezmoi edit ~/.config/waybar/style.css" \
   sc="chezmoi edit ~/.local/bin/" \
   g="git" \
