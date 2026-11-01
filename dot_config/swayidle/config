@@ -1,5 +1,5 @@
 timeout 300 'hyprctl dispatch "hl.dsp.dpms({ action = \"off\" })"' resume 'hyprctl dispatch "hl.dsp.dpms({ action = \"on\" })"'
-timeout 600 'swaylock -f -c 000000'
+timeout 600 'swaylock -f'
 timeout 900 'systemctl suspend'
-before-sleep 'swaylock -f -c 000000'
-lock 'swaylock -f -c 000000'
+before-sleep 'swaylock -f'
+lock 'swaylock -f'
