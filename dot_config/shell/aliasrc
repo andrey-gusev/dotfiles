@@ -28,6 +28,7 @@ alias \
   cfws="chezmoi edit ~/.config/waybar/style.css" \
   sc="chezmoi edit ~/.local/bin/" \
   g="git" \
+  lg="lazygit" \
   ga="git add" \
   gc="git commit -m" \
   gd="git diff" \
