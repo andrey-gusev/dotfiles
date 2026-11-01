@@ -28,7 +28,7 @@ local fileManager = "lf"
 local menu = "rofi -show drun"
 local emojimenu = "rofi -show emoji"
 local browser = "librewolf"
-local editor = "nvim"
+local editor = "helix"
 local mainMod = "SUPER"
 
 hl.on("hyprland.start", function()
