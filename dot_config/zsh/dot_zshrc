@@ -44,6 +44,9 @@ zmodload zsh/complist
 # Enable menu selection on second Tab press
 zstyle ':completion:*' menu select
 
+# Automatically update completion cache for new commands
+zstyle ':completion:*' rehash true
+
 ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
 # Initialize completion dump if missing or older than 24 hours
