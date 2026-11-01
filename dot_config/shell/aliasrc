@@ -44,6 +44,7 @@ alias \
   sdn="shutdown -h now" \
   e='emacs' \
   v='nvim' \
+  hx='helix' \
   p="pacman" \
   y="yay" \
   z="zathura" \
