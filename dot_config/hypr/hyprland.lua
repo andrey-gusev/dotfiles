@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 require(os.getenv("HOME") .. "/.cache/wal/hyprland.lua")
 
 hl.monitor({
