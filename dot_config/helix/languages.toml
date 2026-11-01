@@ -1,0 +1,80 @@
+
+# Python
+[[language]]
+name = "python"
+auto-format = true
+formatter = { command = "ruff", args = ["format", "--stdin-filename", "%{buffer_name}", "-"] }
+
+# C
+[[language]]
+name = "c"
+auto-format = true
+formatter = { command = "clang-format" }
+
+# C++
+[[language]]
+name = "cpp"
+auto-format = true
+formatter = { command = "clang-format" }
+
+# Bash
+[[language]]
+name = "bash"
+auto-format = true
+formatter = { command = "shfmt", args = ["-i", "2", "--filename", "%{buffer_name}", "-"] }
+
+# Lua
+[[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = ["--stdin-filepath", "%{buffer_name}", "-"] }
+
+# TOML
+# Formatting is provided by Taplo LSP.
+[[language]]
+name = "toml"
+auto-format = true
+
+# Markdown
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+# HTML
+[[language]]
+name = "html"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+# CSS
+[[language]]
+name = "css"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+# JavaScript
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+# JSON
+[[language]]
+name = "json"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+[[language]]
+name = "jsonc"
+scope = "source.json"
+file-types = ["jsonc"]
+formatter = { command = "prettier", args = ["--parser", "jsonc"] }
+auto-format = true
+
+# YAML
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+

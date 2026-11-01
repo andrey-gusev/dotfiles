@@ -1,0 +1,19 @@
+theme = "base16_default_dark"
+
+[editor]
+line-number = "relative"
+rulers = [80]
+text-width = 80
+auto-format = true
+cursorline = true
+clipboard-provider = "wayland"
+default-yank-register = "+"
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+wrap-indicator = "↪ "
+
+[keys.normal]
+X = "select_line_above"
+
